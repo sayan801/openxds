@@ -1,0 +1,1 @@
+INSERT INTO documentsources.documentsource (`oid`, `type`, `service_endpoint`, `soap_version`, `timeout`) VALUES ('{{ OPEN_XDS_UNIQUE_REPOSITORY_OID }}', 'repository_unique_id','{{ OPENXDS_SERVICE_URL }}', '1.2', 300000);
