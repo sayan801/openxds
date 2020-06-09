@@ -23,6 +23,7 @@ package org.openhealthtools.openxds.registry.patient;
 import java.util.List;
 import org.openhealthtools.common.utils.IdGenerator;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openhealthexchange.openpixpdq.data.Patient;
 import org.openhealthexchange.openpixpdq.data.PatientIdentifier;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
  * @author <a href="mailto:Rasakannu.Palaniyandi@misys.com">raja</a>
  * 
  */
+@Ignore
 public class XdsRegistryPatientServiceTest {
 
 	private final SecureRandom secRand = new SecureRandom();
