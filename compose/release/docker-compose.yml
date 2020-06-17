@@ -21,8 +21,6 @@ services:
       - XARGS=-Xmx128m
       - XDS_LOG_LEVEL=DEBUG
     ports:
-      ## open-xds registry port is not exposed since opentext registry is used - "8010:8010"
-      ## only expose repository port
       - "{{ OPENXDS_REPOSITORY_PORT }}:8020"
     volumes:
       - ./pack/log/openxds:/logs/

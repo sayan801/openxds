@@ -1,13 +1,11 @@
 #! /bin/bash
 
-cp -R /openxds-template/* /build/
-
-envsubst < /openxds-template/template/log4j.xml > /build/log4j.xml
-envsubst < /openxds-template/template/omar.properties > /build/omar.properties
-envsubst < /openxds-template/template/openxds.properties > /build/openxds.properties
-envsubst < /openxds-template/template/repository.jdbc.cfg.xml > /build/repository.jdbc.cfg.xml
-envsubst < /openxds-template/template/XdsRepositoryConnections.xml > /build/conf/actors/XdsRepositoryConnections.xml
+envsubst < /pack/openxds-templates/log4j.xml > /pack/openxds/build/log4j.xml
+envsubst < /pack/openxds-templates/omar.properties > /pack/openxds/build/omar.properties
+envsubst < /pack/openxds-templates/openxds.properties > /pack/openxds/build/openxds.properties
+envsubst < /pack/openxds-templates/repository.jdbc.cfg.xml > /pack/openxds/build/repository.jdbc.cfg.xml
+envsubst < /pack/openxds-templates/XdsRepositoryConnections.xml > /pack/openxds/build/conf/actors/XdsRepositoryConnections.xml
 
 # start the application
-echo "java $XARGS -jar openxds-1.0.1.jar"
+cd /pack/openxds/build/
 java $XARGS -jar openxds-1.0.1.jar

@@ -235,9 +235,9 @@
             			</resource>
 						<resource>
 							<!-- this is relative to the pom.xml directory 
-							if openxds-web/pom.xml <directory>../../build</directory>
-							if from root pom.xml <directory>../build</directory>-->
-							<directory>../build</directory>
+							if openxds-web/pom.xml <directory>../build</directory>
+							if from root pom.xml <directory>./build</directory>-->
+							<directory>./build</directory>
 							<!-- the destination directory for this resources -->
 							<targetPath>WEB-INF/classes</targetPath>
 							<excludes>
