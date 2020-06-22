@@ -12,7 +12,7 @@
     <groupId>org.openhealthtools.openxds</groupId>
     <artifactId>openxds</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.0</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>OpenXDS Parent</name>
     <description>Implements the IHE XDS profile - XDS Repository and Registry actors</description>
     <url>https://openxds.projects.openhealthtools.org</url>
@@ -29,10 +29,8 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:https://svn.nspop.dk/svn/components/openxds/tags/openxds-2.0.0</connection>
-      <developerConnection>scm:svn:https://svn.sonatype.org/spice/tags/openxds-2.0.0</developerConnection>
-    <url>http://svn.sonatype.org/spice/tags/openxds-2.0.0</url>
-  </scm>
+        <connection>scm:svn:https://svn.nspop.dk/svn/components/openxds/trunk</connection>
+    </scm>
 
     <issueManagement>
         <system />
