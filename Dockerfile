@@ -48,5 +48,3 @@ COPY compose/configuration/entrypoint.sh /pack/openxds
 
 WORKDIR /pack/openxds/
 ENTRYPOINT ["/pack/openxds/entrypoint.sh"]
-## necessary? RUN chmod +x /pack/openxds/entrypoint.sh
-

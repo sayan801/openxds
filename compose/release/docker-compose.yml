@@ -3,24 +3,25 @@ version: '3.4'
 
 services:      
   openxds-server:
+    container_name: '{{ app_openxds_container_name }}'
     image: registry.nspop.dk/components/openxds:0.0.1
     environment:
-      - XDS_REGISTRY_HOST={{ OPENTEXT_REGISTRY_HOST }}
-      - XDS_REGISTRY_PORT={{ OPENTEXT_REGISTRY_PORT }}
-      - XDS_REGISTRY_URL={{ OPENTEXT_REGISTRY_PATH }}
-      - XDS_REPOSITORY_UNIQUE_ID={{ OPENXDS_UNIQUE_REPOSITORY_OID }}
-      - XDS_HOME_COMMUNITY_ID={{ OPENXDS_COMMUNITY_OID }}
+      - XDS_REGISTRY_HOST={{ app_openxds_opentext_host }}
+      - XDS_REGISTRY_PORT={{ app_openxds_opentext_port }}
+      - XDS_REGISTRY_PATH={{ app_openxds_opentext_path }}
+      - XDS_REPOSITORY_UNIQUE_ID={{ app_openxds_unique_repository_oid }}
+      - XDS_HOME_COMMUNITY_ID={{ app_openxds_home_community }}
       - XDS_DB_DIALECT=org.hibernate.dialect.MySQLDialect
       - XDS_DB_DRIVER=com.mysql.jdbc.Driver
-      - XDS_DB_OPENXDS_URL={{ OPENXDS_DATADB_URL}}
-      - XDS_DB_OPENXDS_USERNAME={{ OPENXDS_DATADB_USER }}
-      - XDS_DB_OPENXDS_PASSWORD={{ OPENXDS_DATADB_PASS }}
-      - XDS_DB_LOGS_URL={{ OPENXDS_LOGDB_URL }}
-      - XDS_DB_LOGS_USERNAME={{ OPENXDS_LOGDB_USER }}
-      - XDS_DB_LOGS_PASSWORD={{ OPENXDS_LOGDB_PASS }}
+      - XDS_DB_OPENXDS_URL={{ app_openxds_datadb_db_jdbc}}
+      - XDS_DB_OPENXDS_USERNAME={{ app_openxds_datadb_username }}
+      - XDS_DB_OPENXDS_PASSWORD={{ app_openxds_datadb_password }}
+      - XDS_DB_LOGS_URL={{ app_openxds_logdb_db_jdbc }}
+      - XDS_DB_LOGS_USERNAME={{ app_openxds_logdb_username }}
+      - XDS_DB_LOGS_PASSWORD={{ app_openxds_logdb_password }}
       - XARGS=-Xmx128m
       - XDS_LOG_LEVEL=DEBUG
     ports:
-      - "{{ OPENXDS_REPOSITORY_PORT }}:8020"
+      - "{{ app_openxds_port }}:8020"
     volumes:
       - ./pack/log/openxds:/logs/

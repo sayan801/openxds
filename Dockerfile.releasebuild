@@ -1,0 +1,29 @@
+FROM openjdk:7-jdk
+
+ARG MAVEN_VERSION=3.3.9
+ARG USER_HOME_DIR="/root"
+
+# Install Maven in the correct version
+RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
+  && curl -fsSL http://apache.osuosl.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
+    | tar -xzC /usr/share/maven --strip-components=1  \
+  && ln -s /usr/share/maven/bin/mvn  /usr/bin/mvn
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+
+RUN apt-get update && apt-get -y install gettext-base && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
+##.svn apache-axis2 build common-utils common-ws compose dist iheos lib openxds-api openxds-config openxds-core openxds-log openxds-registry-adapter-omar openxds-registry-patient-lightweight openxds-repository openxds-web src Dockerfile Jenkinsfile build.xml pom.xml build.properties LICENSE.txt diffs.txt .project NOTICE.txt README.txt 
+
+RUN mkdir /openxds-build
+WORKDIR /openxds-build/
+COPY . .
+
+#Build the container, run the following to produce a release
+# docker build -t xb -f Dockerfile.releasebuild .
+# docker run -ti xb
+docker># cd /openxds-build 
+docker># svn up
+ --> input your credentials
+docker># mvn release:prepare -DskipTests
