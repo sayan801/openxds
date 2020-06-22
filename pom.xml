@@ -30,7 +30,7 @@
 
     <scm>
         <connection>scm:svn:https://svn.nspop.dk/svn/components/openxds/trunk</connection>
-        <developerConnection>https://svn.nspop.dk/svn/components/openxds/trunk</developerConnection>
+        <developerConnection>scm:svn:https://svn.nspop.dk/svn/components/openxds/trunk</developerConnection>
     	<url>https://svn.nspop.dk/svn/components/openxds/trunk</url>
     </scm>
 
