@@ -30,6 +30,8 @@
 
     <scm>
         <connection>scm:svn:https://svn.nspop.dk/svn/components/openxds/trunk</connection>
+<!--        <developerConnection>https://svn.nspop.dk/svn/components/openxds/trunk</developerConnection>
+    	<url>https://svn.nspop.dk/svn/components/openxds/trunk</url> -->
     </scm>
 
     <issueManagement>
@@ -136,6 +138,25 @@
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
                     <wtpversion>1.5</wtpversion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <checkModificationExcludes>
+                        <checkModificationExclude>*.project</checkModificationExclude>
+                        <checkModificationExclude>*.classpath</checkModificationExclude>
+                        <checkModificationExclude>**/*.iml</checkModificationExclude>
+                        <checkModificationExclude>*.idea</checkModificationExclude>
+                        <checkModificationExclude>**/*.log</checkModificationExclude>
+                    </checkModificationExcludes>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <tagBase>https://svn.nspop.dk/svn/components/openxds/tags</tagBase>
+                    <tagNameFormat>openxds-@{project.version}</tagNameFormat>
+                    <releaseProfiles>production</releaseProfiles>
+                    <goals>package</goals>
                 </configuration>
             </plugin>
             <plugin>
