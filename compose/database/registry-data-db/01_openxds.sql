@@ -576,37 +576,6 @@ CREATE TABLE `registrypackage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `repository`
---
-
-DROP TABLE IF EXISTS `repository`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `repository` (
-  `documentuniqueid` varchar(255) NOT NULL,
-  `mimetype` varchar(255) NOT NULL,
-  `documentsize` int(11) NOT NULL,
-  `hash` varchar(255) NOT NULL,
-  `content` mediumblob,
-  PRIMARY KEY (`documentuniqueid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `repositoryitem`
---
-
-DROP TABLE IF EXISTS `repositoryitem`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `repositoryitem` (
-  `lid` varchar(256) NOT NULL,
-  `versionname` varchar(16) NOT NULL,
-  `content` mediumblob,
-  PRIMARY KEY (`lid`,`versionname`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `service`

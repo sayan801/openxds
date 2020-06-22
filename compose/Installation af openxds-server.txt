@@ -1,6 +1,6 @@
 Installation af openxds-repository
 
-https://svn.nspop.dk/svn/nsp/trunk/docker/playground/openxds/compose/release/docker-compose.yml
+https://svn.nspop.dk/svn/nsp/trunk/docker/components/openxds/compose/release/docker-compose.yml
 
 Variable, der skal rettes til - ansible eller manuelt:
  - OPENXDS_SERVICE_URL =  Load-balancer-URL der peger på <openxds repository docker>:8020/axis2/services/xdsrepositoryb (92_insert_POC_repository.sql)
@@ -22,19 +22,17 @@ Log-volume-mapping ændres efter behov
 
 Containeren har brug for to mariadb-10.1-databaser, der initialiseres med
   * data-db: 
-     - https://svn.nspop.dk/svn/nsp/trunk/docker/playground/openxds/compose/database/data-db/01_openxds.sql
+     - https://svn.nspop.dk/svn/nsp/trunk/docker/components/openxds/compose/database/repository-data-db/01_openxds.sql
     
   * log-db:
-     - https://svn.nspop.dk/svn/nsp/trunk/docker/playground/openxds/compose/database/log-db/01_openxdslogs.sql
+     - https://svn.nspop.dk/svn/nsp/trunk/docker/components/openxds/compose/database/log-db/01_openxdslogs.sql
 
 
 Derudover skal DDS have kendskab til det nye repository, så følgende skal udføres på dds'ens database:
-   - https://svn.nspop.dk/svn/nsp/trunk/docker/playground/openxds/compose/database/dds-db/92_insert_POC_repository.sql
+   - https://svn.nspop.dk/svn/nsp/trunk/docker/components/openxds/compose/database/dds-db/92_insert_POC_repository.sql
 Den eksisterende række i tabellen documentsources.documentsource med samme oid, der peger på opentext-repository'et skal slettes
    
 DRS 
-application.properties (test1-cniab11.nsp-test.netic.dk:/pack/wildfly8/modules/sds/drs/configuration/main/application.properties), ret fra 
- - backend.url=http://test1-cnsp.ekstern-test.nspop.dk:8080/repository/services/xds-iti41?wsdl
- - backend.url={{ OPENXDS_SERVICE_URL }} + '?wdsl' (load-balancer-URL for nyt repository-docker-image tilføjet '?wdsl')
-
- Alt data vedrørende det eksisterende repository bør slettes i registry'et eftersom de data, der peges på, ikke findes i det nye repository og derfor vil give anledning til fejl ved forsøg på hentning.
+I application.properties skal 'backend.url' rettes 
+ - fra at ende på /repository/services/xds-iti41?wsdl
+ - til at stemme overens med OPENXDS_SERVICE_URL (øverst) tilføjet ?wsdl

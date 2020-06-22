@@ -3,7 +3,7 @@ version: '3.4'
 
 services:      
   openxds-server:
-    image: registry.nspop.dk/playground/openxds:0.0.1
+    image: registry.nspop.dk/components/openxds:0.0.1
     environment:
       - XDS_REGISTRY_HOST={{ OPENTEXT_REGISTRY_HOST }}
       - XDS_REGISTRY_PORT={{ OPENTEXT_REGISTRY_PORT }}
