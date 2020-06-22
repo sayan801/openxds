@@ -29,9 +29,7 @@
     </licenses>
 
     <scm>
-    	<connection>scm:svn:https://openxds.projects.openhealthtools.org/svn/openxds/tags/openxds-1.0.1-20100721</connection>
-    	<developerConnection>scm:svn:https://openxds.projects.openhealthtools.org/svn/openxds/tags/openxds-1.0.1-20100721</developerConnection>
-    	<url>https://openxds.projects.openhealthtools.org/source/browse/openxds/tags/openxds-1.0.1-20100721</url>
+        <connection>scm:svn:https://svn.nspop.dk/svn/components/openxds/trunk</connection>
     </scm>
 
     <issueManagement>
