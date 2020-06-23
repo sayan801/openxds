@@ -79,10 +79,11 @@
           <classpath refid="jar.class.path" />
         </manifestclasspath>
 		<!-- Make a jar file -->
-        <jar destfile="${build.dir}/${project.name}-${project.version}.jar">
+        <jar destfile="${build.dir}/${project.name}.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.openhealthtools.openxds.XdsServer"/>
                 <attribute name="Class-Path" value=". ./conf ${manifest.classpath.prop}"/>
+                <attribute name="${project.name}-version" value="${project.version}"/>
             </manifest>
             <fileset dir="${openxds.dir}/common-utils/target/classes">
             	<include name="org/**" />

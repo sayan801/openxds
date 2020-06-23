@@ -8,4 +8,4 @@ envsubst < /pack/openxds-templates/XdsRepositoryConnections.xml > /pack/openxds/
 
 # start the application
 cd /pack/openxds/build/
-java $XARGS -jar openxds-1.0.1.jar
+java $XARGS -jar openxds.jar

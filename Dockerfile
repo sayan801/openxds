@@ -46,5 +46,7 @@ COPY compose/configuration/XdsRepositoryConnections.xml /pack/openxds-templates
 # Copy entrypoint
 COPY compose/configuration/entrypoint.sh /pack/openxds
 
+RUN echo "Europe/Copenhagen" > /etc/timezone
+
 WORKDIR /pack/openxds/
 ENTRYPOINT ["/pack/openxds/entrypoint.sh"]
