@@ -2,8 +2,7 @@
 version: '3.4'
 
 services:      
-  openxds-server:
-    container_name: '{{ app_openxds_container_name }}'
+  openxds:    
     image: registry.nspop.dk/components/openxds:0.0.1
     environment:
       - XDS_REGISTRY_HOST={{ app_openxds_opentext_host }}
@@ -22,6 +21,6 @@ services:
       - XARGS=-Xmx128m
       - XDS_LOG_LEVEL=DEBUG
     ports:
-      - "{{ app_openxds_port }}:8020"
+      - "{{ comp_openxds_port }}:8020"
     volumes:
-      - ./pack/log/openxds:/logs/
+      - /pack/log/openxds:/logs/
