@@ -23,7 +23,6 @@ COPY . .
 #Build the container, run the following to produce a release
 #  docker build -t xb -f Dockerfile.releasebuild .
 #  docker run -ti --name xdsbuilder xb
-## docker># cd /openxds-build 
 ## docker># svn up
 ##  --> input your credentials
 ## docker># mvn release:prepare -DskipTests
