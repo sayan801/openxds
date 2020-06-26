@@ -33,18 +33,20 @@ COPY README.txt /pack/openxds/
 COPY LICENSE.txt /pack/openxds/
 COPY NOTICE.txt  /pack/openxds/
 
-RUN cd /pack/openxds && mvn clean install -DskipTests
+RUN cd /pack/openxds && mvn clean install -DskipTests 
+RUN cd /pack/openxds && mvn dependency:tree > deptree.txt
+#RUN cd /pack/openxds && mvn clean install -DskipTests eclipse:eclipse -DdownloadSources
 
 # Copy template files
 RUN mkdir -p /pack/openxds-templates/
-COPY compose/configuration/log4j.xml /pack/openxds-templates
-COPY compose/configuration/omar.properties /pack/openxds-templates
-COPY compose/configuration/openxds.properties /pack/openxds-templates
-COPY compose/configuration/repository.jdbc.cfg.xml /pack/openxds-templates
-COPY compose/configuration/XdsRepositoryConnections.xml /pack/openxds-templates
+COPY etc/log4j.xml /pack/openxds-templates
+COPY etc/omar.properties /pack/openxds-templates
+COPY etc/openxds.properties /pack/openxds-templates
+COPY etc/repository.jdbc.cfg.xml /pack/openxds-templates
+COPY etc/XdsRepositoryConnections.xml /pack/openxds-templates
 
 # Copy entrypoint
-COPY compose/configuration/entrypoint.sh /pack/openxds
+COPY entrypoint.sh /pack/openxds
 RUN chmod +x /pack/openxds/entrypoint.sh
 
 RUN echo "Europe/Copenhagen" > /etc/timezone
