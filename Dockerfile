@@ -34,7 +34,6 @@ COPY LICENSE.txt /pack/openxds/
 COPY NOTICE.txt  /pack/openxds/
 
 RUN cd /pack/openxds && mvn clean install -DskipTests 
-RUN cd /pack/openxds && mvn dependency:tree > deptree.txt
 #RUN cd /pack/openxds && mvn clean install -DskipTests eclipse:eclipse -DdownloadSources
 
 # Copy template files
