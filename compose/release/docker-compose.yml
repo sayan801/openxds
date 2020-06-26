@@ -18,7 +18,7 @@ services:
       - XDS_DB_LOGS_URL={{ app_openxds_logdb_db_jdbc }}
       - XDS_DB_LOGS_USERNAME={{ app_openxds_logdb_username }}
       - XDS_DB_LOGS_PASSWORD={{ app_openxds_logdb_password }}
-      - XARGS=-Xmx1024m
+      - XARGS=-Xmx2048m
       - XDS_LOG_LEVEL=DEBUG
     ports:
       - "{{ comp_openxds_port }}:8020"
