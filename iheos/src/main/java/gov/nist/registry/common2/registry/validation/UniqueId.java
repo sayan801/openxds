@@ -75,7 +75,8 @@ public class UniqueId {
 				rel.add_error(MetadataSupport.XDSRegistryMetadataError,
 						"UniqueId " + uid + ": OID part is larger than the allowed 64 characters",
 						"validation/UniqueId.java:validate_format_for_documents", null);
-			if (ext.length() > 16)
+			//was_ if (ext.length() > 16), but some documentIds received were observed to have a length of 36, so increasing
+		    if (ext.length() > 64)
 				rel.add_error(MetadataSupport.XDSRegistryMetadataError,
 						"UniqueId " + uid + ": EXT part is larger than the allowed 16 characters",
 						"validation/UniqueId.java:validate_format_for_documents", null);
