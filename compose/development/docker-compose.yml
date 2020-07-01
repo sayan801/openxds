@@ -23,12 +23,13 @@ services:
       - XDS_DB_LOGS_URL=jdbc:mysql://openxds-repository-logs-db:3306/openxdslogs
       - XDS_DB_LOGS_USERNAME=logs
       - XDS_DB_LOGS_PASSWORD=logs123
-      - XARGS=-Xmx128m
+      - XARGS=-Xmx128m -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8110
       - XDS_LOG_LEVEL=DEBUG
     ports:
       - "8020:8020"
+      - "8110:8110"
     volumes:
-      - ./logs:/logs/
+      - ./logs/repository:/logs/
  
   openxds-repository-db:
     image: mariadb:10.1
@@ -80,7 +81,7 @@ services:
     ports:
       - "8010:8010"
     volumes:
-      - ./logs:/logs/    
+      - ./logs/registry:/logs/    
 
   openxds-registry-db:
     image: mariadb:10.1
