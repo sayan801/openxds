@@ -91,6 +91,7 @@ public class RelationalDBRepositoryServiceImpl implements XdsRepositoryService {
 			repositoryItem.setDataHandler(contentDataHandler);
 			repositoryItem.setDocumentUniqueId(repository.getDocumentUniqueId());
 			repositoryItem.setMimeType(repository.getMimeType());
+			log.debug("Document unique id retrieved from repository: " + id);
 			}
 		} catch (Exception e) {
 			log.error(e);
@@ -148,9 +149,10 @@ public class RelationalDBRepositoryServiceImpl implements XdsRepositoryService {
 			String newHash = item.getHash();
 			if (bean.getHash().equals(newHash)) {
 				//The same document is saved previously. Allow it to proceed.
+			    log.debug("Document unique id already exists in repository with same hash: " + bean.getDocumentUniqueId());
 				return ;
 			}
-			log.debug("document unique id already exist");
+			log.debug("Document unique id already exists in repository: "+ bean.getDocumentUniqueId());
 			throw new RepositoryException("document unique id already exist in repository");
 		}
 		InputStream is = null;
@@ -175,6 +177,7 @@ public class RelationalDBRepositoryServiceImpl implements XdsRepositoryService {
         bean.setMimeType(mimeTypeCode);
         bean.setSize(item.getSize());
         bean.setHash(item.getHash());
+        log.debug("Inserting document unique id in repository: "+ bean.getDocumentUniqueId());
 		xdsRepositoryManagerDao.insert(bean);		
 	}
 	
@@ -213,7 +216,7 @@ public class RelationalDBRepositoryServiceImpl implements XdsRepositoryService {
 			 log.error(e); 
 			throw new RepositoryException(e);
 		}
-		log.debug("Reposiotry bean deleted successfully"); 
+		log.debug("Repository document unique id deleted successfully: " + id); 
 				
 	}
 	/* (non-Javadoc)
