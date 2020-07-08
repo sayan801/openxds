@@ -455,7 +455,7 @@ return ;
 			//													name							identificationScheme                          OID required
 			this.validate_ext_id("Submission Set", id, ext_ids, "XDSSubmissionSet.patientId", "urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446", false);
 			this.validate_ext_id("Submission Set", id, ext_ids, "XDSSubmissionSet.sourceId", "urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832",  true);
-			this.validate_ext_id("Submission Set", id, ext_ids, "XDSSubmissionSet.uniqueId", "urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8",  true);
+			this.validate_ext_id("Submission Set", id, ext_ids, "XDSSubmissionSet.uniqueId", "urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8",  false); // <-- allow non-oids to pass
 
 		}
 	}

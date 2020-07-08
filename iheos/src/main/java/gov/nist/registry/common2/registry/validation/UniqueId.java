@@ -36,7 +36,7 @@ public class UniqueId {
 				rel.add_error(MetadataSupport.XDSRegistryDuplicateUniqueIdInMessage, 
 						"UniqueId " + uid + " is not unique within the submission", 
 						"validation/UniqueId.java", null);
-			validate_format(uid);
+			//validate_format(uid); //TODO re-enable when submitters of document start to comply
 		}
 
 		for (String id : m.getExtrinsicObjectIds()) {
