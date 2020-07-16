@@ -25,6 +25,7 @@ COPY . .
 #  docker run -ti --name xdsbuilder xb
 ## docker># svn up
 ##  --> input your credentials
-## docker># mvn release:prepare -DskipTests
+## docker># mvn install release:prepare -DskipTests
+## docker># exit
 # docker rm xdsbuilder
 # docker rmi xb
