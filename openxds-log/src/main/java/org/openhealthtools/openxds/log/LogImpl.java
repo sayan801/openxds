@@ -99,33 +99,38 @@ public class LogImpl extends HibernateDaoSupport implements Log {
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public void writeMessage(LogMessage message) throws LoggerException {
-		if (message != null)
-			getHibernateTemplate().saveOrUpdate((Message)message);
+		if (message != null) {
+			//getHibernateTemplate().saveOrUpdate((Message)message);
+			log.info(message.toJson());
+		}
 	}
 
 	public void deleteMessage(LogMessage m) throws LoggerException {
-		if (m != null)
-			getHibernateTemplate().delete((Message)m);
+	    throw new UnsupportedOperationException("Cannot delete log messages");
+//		if (m != null)
+//			getHibernateTemplate().delete((Message)m);
 
 	}
 
 	public void deleteMessage(String messageID) throws LoggerException {
-		if (messageID != null) {
-			Message m = new Message();
-			m.setMessageID(messageID);
-			deleteMessage(m);
-		}
+	    throw new UnsupportedOperationException("Cannot delete log messages");
+//		if (messageID != null) {
+//			Message m = new Message();
+//			m.setMessageID(messageID);
+//			deleteMessage(m);
+//		}
 	}
 
 	public Message readMessage(String messageID) throws LoggerException {
-		Message m = null;
-		if (messageID != null) {
-			List<Message> messages = getHibernateTemplate().find(
-					"from Message m where m.messageID = ? ",
-					new String[] { messageID });
-			if (messages != null && !messages.isEmpty())
-				m = messages.get(0);
-		}
-		return m;
+	    throw new UnsupportedOperationException("Cannot delete log messages");
+//		Message m = null;
+//		if (messageID != null) {
+//			List<Message> messages = getHibernateTemplate().find(
+//					"from Message m where m.messageID = ? ",
+//					new String[] { messageID });
+//			if (messages != null && !messages.isEmpty())
+//				m = messages.get(0);
+//		}
+//		return m;
 	}
 }

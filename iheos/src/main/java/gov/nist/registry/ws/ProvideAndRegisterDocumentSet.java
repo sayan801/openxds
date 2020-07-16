@@ -330,7 +330,7 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 
 		log_message.addOtherParam("Register transaction endpoint", epr);
 
-		log_message.addOtherParam("Register transaction", register_transaction.toString());
+		log_message.addOtherParam("Register transaction", "Number of characters: " + register_transaction.toString().length());
 
 		boolean success = false;
 		Soap soap = new Soap();

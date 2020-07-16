@@ -100,7 +100,7 @@ public class XdsService extends AppendixV {
 			log_message.addHTTPParam(Fields.date, getDateTime());
 			log_message.setSecure(is_secure);
 			if (request != null)
-				log_message.addOtherParam("Request", request.toString());
+				log_message.addOtherParam("Request", "Number of characters: " + request.toString().length());
 			else {
 				log_message.addErrorParam("Error", "Cannot access request body in XdsService.begin_service()");
 				return start_up_error(request, null, actor, "Request body is null");
@@ -133,7 +133,7 @@ public class XdsService extends AppendixV {
 			{
 				try
 				{
-					addSoap( "Soap Envelope", getMessageContext().getEnvelope().toStringWithConsume() );
+					addSoap( "Soap Envelope", "Number of characters: " + getMessageContext().getEnvelope().toStringWithConsume().length() );
 				}  catch (OMException e) {} catch (XMLStreamException e) {}
 			}
 //			log_message.addHTTPParam(Fields.fromIpAddress , getMessageContext().getFrom().getAddress() ) ;  

@@ -42,4 +42,5 @@ public interface LogMessage {
 	public void addErrorParam( String name , String value ) throws LoggerException;
 	public void addOtherParam ( String name , String value ) throws LoggerException;
 	public String getMessageID();
+	public String toJson();
 }

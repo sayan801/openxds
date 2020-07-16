@@ -92,4 +92,8 @@ public class MockLog implements LogMessage {
 		
 	}
 
+    @Override
+    public String toJson() {
+        return null;
+    }
 }

@@ -104,7 +104,7 @@ public class XdsCommon  {
 			} else
 				log_message.setPass(true);
 
-			log_message.addOtherParam("Response", response.getResponse().toString());
+			log_message.addOtherParam("Response", "Number of characters: " + response.getResponse().toString().length());
 		}
 		catch (LoggerException e) {
 			logger.error("**************ERROR: Logger exception attempting to return to user");

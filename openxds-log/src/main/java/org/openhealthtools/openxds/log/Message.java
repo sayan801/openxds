@@ -29,10 +29,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Vector;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -375,35 +379,36 @@ public class Message implements LogMessage{
 		// buffNodeNames.toString() + buff.toString() + "</message>" ;
 	}
 
-	public String toJSon() {
-		StringBuffer buff = new StringBuffer();
-		//TODO: need to update
-		/*buff.append("{\"message\" : { \n" + "\"number\": \"" + messageID
-				+ "\" , \n  ");
-		buff.append("\"table\": \n\t[");
+	public String toJson() {
+	    JsonObjectBuilder rootBuilder = Json.createObjectBuilder();
+	    String msgId = getMessageID();
+	    if(msgId != null) {
+	        rootBuilder.add("MessageID", msgId);
+	    } else {
+	        rootBuilder.addNull("MessageID");
+	    }
+	    Date recv = getTimeReceived();
+	    if(recv != null ) {
+	        rootBuilder.add("TimeReceived", recv.toString());
+	    } else {	        
+	        rootBuilder.addNull("TimeReceived");
+	    }
+	    
+	    Map<String, List<? extends BaseMessage>> loggables = new HashMap<String, List<? extends BaseMessage>>();
+	    loggables.put("http", httpMessages);
+	    loggables.put("soap", soapMessages);
+	    loggables.put("other", otherMessages);
+	    loggables.put("error", errorMessages);
 
-		// buff.append(mainMessage.toJSon());
+	    JsonArrayBuilder msgs = Json.createArrayBuilder();
+	    for (Entry<String, List<? extends BaseMessage>> msgType : loggables.entrySet()) {
+	        for(BaseMessage msg : msgType.getValue()) {
+	            msgs.add(Json.createObjectBuilder().add(msg.getName(), msg.getValue()));
+	        }
+	        rootBuilder.add(msgType.getKey(), msgs);
+	    }
 
-		Iterator<String> it = tableList.iterator();
-
-		while (it.hasNext()) {
-			String currentTable = it.next();
-			if (!currentTable.equals("main") && !currentTable.equals("ip")) {
-				Vector v = miscVectors.get(currentTable);
-				buff.append(",\n{\"name\" : \"" + currentTable + "\",\n");
-				buff.append("\"values\" : [");
-				for (int i = 0; i < v.size(); i++) {
-					//buff.append(v.elementAt(i).toJSon());
-					if (i < v.size())
-						buff.append(",\n");
-				}
-				buff.append("]\n}");
-
-			}
-		}
-		buff.append("]\n}\n}");*/
-
-		return buff.toString();
+		return rootBuilder.build().toString();
 	}
 
 	public HashSet<String> getTableList() {
