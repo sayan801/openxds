@@ -62,250 +62,250 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "main")
 public class Message implements LogMessage{
 
-	@Id
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	@GeneratedValue(generator = "system-uuid")
-	@Column(name = "messageID")
-	private String messageID;
+    @Id
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @Column(name = "messageID")
+    private String messageID;
 
-	@Column(name = "is_secure")
-	private boolean secure;
+    @Column(name = "is_secure")
+    private boolean secure;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ip")
-	private CompanyDetails companyDetails;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ip")
+    private CompanyDetails companyDetails;
 
-	@Column(name = "timereceived")
-	private Date timeReceived;
+    @Column(name = "timereceived")
+    private Date timeReceived;
 
-	@Lob
-	@Column(name = "test", length=1048576)
-	private String test;
+    @Lob
+    @Column(name = "test", length=1048576)
+    private String test;
 
-	@Column(name = "pass")
-	private boolean pass;
+    @Column(name = "pass")
+    private boolean pass;
 
-	@OneToMany(mappedBy="message", cascade = CascadeType.ALL)
-	List<HttpMessage> httpMessages = new ArrayList<HttpMessage>();
+    @OneToMany(mappedBy="message", cascade = CascadeType.ALL)
+    List<HttpMessage> httpMessages = new ArrayList<HttpMessage>();
 
-	@OneToMany(mappedBy="message", cascade = CascadeType.ALL)
-	List<SoapMessage> soapMessages = new ArrayList<SoapMessage>();
+    @OneToMany(mappedBy="message", cascade = CascadeType.ALL)
+    List<SoapMessage> soapMessages = new ArrayList<SoapMessage>();
 
-	@OneToMany(mappedBy="message", cascade = CascadeType.ALL)
-	List<OtherMessage> otherMessages = new ArrayList<OtherMessage>();
+    @OneToMany(mappedBy="message", cascade = CascadeType.ALL)
+    List<OtherMessage> otherMessages = new ArrayList<OtherMessage>();
 
-	@OneToMany(mappedBy="message", cascade = CascadeType.ALL)
-	List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
+    @OneToMany(mappedBy="message", cascade = CascadeType.ALL)
+    List<ErrorMessage> errorMessages = new ArrayList<ErrorMessage>();
 
-	@Transient
-	private Hashtable<String, Vector> miscVectors;
+    @Transient
+    private Hashtable<String, Vector> miscVectors;
 
-	@Transient
-	private HashSet<String> tableList;
+    @Transient
+    private HashSet<String> tableList;
 
-	public Message() {
-	}
+    public Message() {
+    }
 
-	public Date getTimeReceived() {
-		return timeReceived;
-	}
+    public Date getTimeReceived() {
+        return timeReceived;
+    }
 
-	public void setTimeReceived(Date timeReceived) {
-		this.timeReceived = timeReceived;
-	}
+    public void setTimeReceived(Date timeReceived) {
+        this.timeReceived = timeReceived;
+    }
 
-	public String getTest() {
-		return test;
-	}
+    public String getTest() {
+        return test;
+    }
 
-	public void setTest(String test) {
-		this.test = test;
-	}
+    public void setTest(String test) {
+        this.test = test;
+    }
 
-	public List<HttpMessage> getHttpMessages() {
-		return httpMessages;
-	}
+    public List<HttpMessage> getHttpMessages() {
+        return httpMessages;
+    }
 
-	public void setHttpMessages(List<HttpMessage> httpMessages) {
-		this.httpMessages = httpMessages;
-	}
+    public void setHttpMessages(List<HttpMessage> httpMessages) {
+        this.httpMessages = httpMessages;
+    }
 
-	public List<SoapMessage> getSoapMessages() {
-		return soapMessages;
-	}
+    public List<SoapMessage> getSoapMessages() {
+        return soapMessages;
+    }
 
-	public void setSoapMessages(List<SoapMessage> soapMessages) {
-		this.soapMessages = soapMessages;
-	}
+    public void setSoapMessages(List<SoapMessage> soapMessages) {
+        this.soapMessages = soapMessages;
+    }
 
-	public List<OtherMessage> getOtherMessages() {
-		return otherMessages;
-	}
+    public List<OtherMessage> getOtherMessages() {
+        return otherMessages;
+    }
 
-	public void setOtherMessages(List<OtherMessage> otherMessages) {
-		this.otherMessages = otherMessages;
-	}
+    public void setOtherMessages(List<OtherMessage> otherMessages) {
+        this.otherMessages = otherMessages;
+    }
 
-	public List<ErrorMessage> getErrorMessages() {
-		return errorMessages;
-	}
+    public List<ErrorMessage> getErrorMessages() {
+        return errorMessages;
+    }
 
-	public void setErrorMessages(List<ErrorMessage> errorMessages) {
-		this.errorMessages = errorMessages;
-	}
+    public void setErrorMessages(List<ErrorMessage> errorMessages) {
+        this.errorMessages = errorMessages;
+    }
 
-	public boolean isSecure() {
-		return secure;
-	}
+    public boolean isSecure() {
+        return secure;
+    }
 
-	public boolean isPass() {
-		return pass;
-	}
+    public boolean isPass() {
+        return pass;
+    }
 
-	public void setTimeStamp(Timestamp timestamp) {
-		this.timeReceived = timestamp;
-	}
+    public void setTimeStamp(Timestamp timestamp) {
+        this.timeReceived = timestamp;
+    }
 
-	public void setSecure(boolean isSecure) {
-		this.secure = isSecure;
-	}
+    public void setSecure(boolean isSecure) {
+        this.secure = isSecure;
+    }
 
-	public void setTestMessage(String testMessage) {
-		this.test = testMessage;
-	}
+    public void setTestMessage(String testMessage) {
+        this.test = testMessage;
+    }
 
-	public void setPass(boolean pass) {
-		this.pass = pass;
-	}
+    public void setPass(boolean pass) {
+        this.pass = pass;
+    }
 
-	public void setIP(String ip) throws LoggerException {
-		String ipStr = ip;
-		try {
-			ipStr = InetAddress.getByName(ip).getHostAddress();
-		} catch (UnknownHostException e) {
-		}
-		CompanyDetails detials = getCompanyDetails();
-		if (detials == null)
-			detials = new CompanyDetails();
-		detials.setIp(ipStr);
-		setCompanyDetails(detials);
-	}
+    public void setIP(String ip) throws LoggerException {
+        String ipStr = ip;
+        try {
+            ipStr = InetAddress.getByName(ip).getHostAddress();
+        } catch (UnknownHostException e) {
+        }
+        CompanyDetails detials = getCompanyDetails();
+        if (detials == null)
+            detials = new CompanyDetails();
+        detials.setIp(ipStr);
+        setCompanyDetails(detials);
+    }
 
-	/***
-	 * 
-	 * @param companyName
-	 *            String. Make a pair in the IP table between an IP address and
-	 *            a company name. If this pair doesn't exist in the IP table,
-	 *            it's logged, if it exists, the pair is updated with the new
-	 *            company name.
-	 * @throws LoggerException
-	 */
-	public void setCompany(String companyName) throws LoggerException {
-		CompanyDetails detials = getCompanyDetails();
-		if (detials == null || detials.getIp() == null)
-			throw new LoggerException(
-					"Message:setCompany ( String companyName ):: Cannot set company name , the current IP adress associated is null");
-		
-		if(companyName == null)
-			companyName = "Unknown";
+    /***
+     * 
+     * @param companyName
+     *            String. Make a pair in the IP table between an IP address and
+     *            a company name. If this pair doesn't exist in the IP table,
+     *            it's logged, if it exists, the pair is updated with the new
+     *            company name.
+     * @throws LoggerException
+     */
+    public void setCompany(String companyName) throws LoggerException {
+        CompanyDetails detials = getCompanyDetails();
+        if (detials == null || detials.getIp() == null)
+            throw new LoggerException(
+                    "Message:setCompany ( String companyName ):: Cannot set company name , the current IP adress associated is null");
 
-		detials.setCompanyName(companyName);
-	}
+        if(companyName == null)
+            companyName = "Unknown";
 
-	/**
-	 * Generic function creating a pair &lt; parameter name , parameter value
-	 * &gt; for the current messageID. <br />
-	 * If the Table Name doesn't exist , it is created before writing the
-	 * message ( in the writeMessage method ). The parameter is stored in a
-	 * hashtable &lt; tableName , Vector &lt;GenericTable &gt; &gt;
-	 * 
-	 * @param messageType
-	 *            , table name wherein the parameter name and value are logged
-	 * @param name
-	 *            , parameter name
-	 * @param value
-	 *            ,parameter value
-	 * @throws LoggerException
-	 */
-	public void addParam(String messageType, String name, String value)
-			throws LoggerException {
-		if (messageType != null) {
-			if ("http".equalsIgnoreCase(messageType)) {
-				addHTTPParam(name, value);
-			} else if ("soap".equalsIgnoreCase(messageType)) {
-				addSoapParam(name, value);
-			} else if ("error".equalsIgnoreCase(messageType)) {
-				addErrorParam(name, value);
-			} else if ("other".equalsIgnoreCase(messageType)) {
-				addOtherParam(name, value);
-			}
-		} else
-			throw new LoggerException("messageType is null");
-	}
+        detials.setCompanyName(companyName);
+    }
 
-	/**
-	 * Used for xdsTestLog. Same as addParam ( "http" , name , value ) ;
-	 * 
-	 * @param name
-	 * @param value
-	 * @throws LoggerException
-	 */
-	public void addHTTPParam(String name, String value) throws LoggerException {
-		HttpMessage httpMessage = new HttpMessage(name, value);
-		httpMessage.setMessage(this);
-		httpMessages.add(httpMessage);
-	}
+    /**
+     * Generic function creating a pair &lt; parameter name , parameter value
+     * &gt; for the current messageID. <br />
+     * If the Table Name doesn't exist , it is created before writing the
+     * message ( in the writeMessage method ). The parameter is stored in a
+     * hashtable &lt; tableName , Vector &lt;GenericTable &gt; &gt;
+     * 
+     * @param messageType
+     *            , table name wherein the parameter name and value are logged
+     * @param name
+     *            , parameter name
+     * @param value
+     *            ,parameter value
+     * @throws LoggerException
+     */
+    public void addParam(String messageType, String name, String value)
+            throws LoggerException {
+        if (messageType != null) {
+            if ("http".equalsIgnoreCase(messageType)) {
+                addHTTPParam(name, value);
+            } else if ("soap".equalsIgnoreCase(messageType)) {
+                addSoapParam(name, value);
+            } else if ("error".equalsIgnoreCase(messageType)) {
+                addErrorParam(name, value);
+            } else if ("other".equalsIgnoreCase(messageType)) {
+                addOtherParam(name, value);
+            }
+        } else
+            throw new LoggerException("messageType is null");
+    }
 
-	/**
-	 * Used for xdsTestLog. Same as addParam ( "soap" , name , value ) ;
-	 * 
-	 * @param name
-	 * @param value
-	 * @throws LoggerException
-	 */
-	public void addSoapParam(String name, String value) throws LoggerException {
-		SoapMessage soapMessage = new SoapMessage(name, value);
-		soapMessage.setMessage(this);
-		soapMessages.add(soapMessage);
-	}
+    /**
+     * Used for xdsTestLog. Same as addParam ( "http" , name , value ) ;
+     * 
+     * @param name
+     * @param value
+     * @throws LoggerException
+     */
+    public void addHTTPParam(String name, String value) throws LoggerException {
+        HttpMessage httpMessage = new HttpMessage(name, value);
+        httpMessage.setMessage(this);
+        httpMessages.add(httpMessage);
+    }
 
-	/**
-	 * Used for xdsTestLog. Same as addParam ( "error" , name , value ) ;
-	 * 
-	 * @param name
-	 * @param value
-	 * @throws LoggerException
-	 */
-	public void addErrorParam(String name, String value) throws LoggerException {
-		ErrorMessage errorMessage = new ErrorMessage(name, value);
-		errorMessage.setMessage(this);
-		errorMessages.add(errorMessage);
-	}
+    /**
+     * Used for xdsTestLog. Same as addParam ( "soap" , name , value ) ;
+     * 
+     * @param name
+     * @param value
+     * @throws LoggerException
+     */
+    public void addSoapParam(String name, String value) throws LoggerException {
+        SoapMessage soapMessage = new SoapMessage(name, value);
+        soapMessage.setMessage(this);
+        soapMessages.add(soapMessage);
+    }
 
-	/**
-	 * Used for xdsTestLog. Same as addParam ( "other" , name , value ) ;
-	 * 
-	 * @param name
-	 * @param value
-	 * @throws LoggerException
-	 */
-	public void addOtherParam(String name, String value) throws LoggerException {
-		OtherMessage message = new OtherMessage(name, value);
-		message.setMessage(this);
-		otherMessages.add(message);
-	}
+    /**
+     * Used for xdsTestLog. Same as addParam ( "error" , name , value ) ;
+     * 
+     * @param name
+     * @param value
+     * @throws LoggerException
+     */
+    public void addErrorParam(String name, String value) throws LoggerException {
+        ErrorMessage errorMessage = new ErrorMessage(name, value);
+        errorMessage.setMessage(this);
+        errorMessages.add(errorMessage);
+    }
 
-	/**
-	 * Method used to display the message in the xds log reader. This method
-	 * format the message in XML displaying first the list of table ( nodes )
-	 * available and then the content of the message.
-	 * 
-	 * @return
-	 */
+    /**
+     * Used for xdsTestLog. Same as addParam ( "other" , name , value ) ;
+     * 
+     * @param name
+     * @param value
+     * @throws LoggerException
+     */
+    public void addOtherParam(String name, String value) throws LoggerException {
+        OtherMessage message = new OtherMessage(name, value);
+        message.setMessage(this);
+        otherMessages.add(message);
+    }
 
-	public String toXml() {
-		//TODO: need to update 
-		/*StringBuffer buff = new StringBuffer();
+    /**
+     * Method used to display the message in the xds log reader. This method
+     * format the message in XML displaying first the list of table ( nodes )
+     * available and then the content of the message.
+     * 
+     * @return
+     */
+
+    public String toXml() {
+        //TODO: need to update 
+        /*StringBuffer buff = new StringBuffer();
 
 		StringBuffer buffNodeNames = new StringBuffer();
 		buffNodeNames.append("<Nodes>");
@@ -331,15 +331,15 @@ public class Message implements LogMessage{
 
 		return "<message number='" + messageID + "'>"
 				+ buffNodeNames.toString() + buff.toString() + "</message>";*/
-		
-		return null;
-	}
 
-	public HashMap<String, HashMap<String, Object>> toHashMap() {
-		//TODO: need to update
-		HashMap<String, HashMap<String, Object>> values = new HashMap<String, HashMap<String, Object>>();
+        return null;
+    }
 
-		/*values.put("main", mainMessage.toHashMap());
+    public HashMap<String, HashMap<String, Object>> toHashMap() {
+        //TODO: need to update
+        HashMap<String, HashMap<String, Object>> values = new HashMap<String, HashMap<String, Object>>();
+
+        /*values.put("main", mainMessage.toHashMap());
 
 		Iterator<String> it = tableList.iterator();
 
@@ -373,66 +373,74 @@ public class Message implements LogMessage{
 			}
 		}*/
 
-		return values;
+        return values;
 
-		// return "<message number='"+ messageID +"'>" +
-		// buffNodeNames.toString() + buff.toString() + "</message>" ;
-	}
+        // return "<message number='"+ messageID +"'>" +
+        // buffNodeNames.toString() + buff.toString() + "</message>" ;
+    }
 
-	public String toJson() {
-	    JsonObjectBuilder rootBuilder = Json.createObjectBuilder();
-	    String msgId = getMessageID();
-	    if(msgId != null) {
-	        rootBuilder.add("MessageID", msgId);
-	    } else {
-	        rootBuilder.addNull("MessageID");
-	    }
-	    Date recv = getTimeReceived();
-	    if(recv != null ) {
-	        rootBuilder.add("TimeReceived", recv.toString());
-	    } else {	        
-	        rootBuilder.addNull("TimeReceived");
-	    }
-	    
-	    Map<String, List<? extends BaseMessage>> loggables = new HashMap<String, List<? extends BaseMessage>>();
-	    loggables.put("http", httpMessages);
-	    loggables.put("soap", soapMessages);
-	    loggables.put("other", otherMessages);
-	    loggables.put("error", errorMessages);
+    public String toJson() {
+        JsonObjectBuilder rootBuilder = Json.createObjectBuilder();
+        String msgId = getMessageID();
+        if(msgId != null) {
+            rootBuilder.add("MessageID", msgId);
+        } else {
+            rootBuilder.addNull("MessageID");
+        }
+        Date recv = getTimeReceived();
+        if(recv != null ) {
+            rootBuilder.add("TimeReceived", recv.toString());
+        } else {	        
+            rootBuilder.addNull("TimeReceived");
+        }
 
-	    JsonArrayBuilder msgs = Json.createArrayBuilder();
-	    for (Entry<String, List<? extends BaseMessage>> msgType : loggables.entrySet()) {
-	        for(BaseMessage msg : msgType.getValue()) {
-	            msgs.add(Json.createObjectBuilder().add(msg.getName(), msg.getValue()));
-	        }
-	        rootBuilder.add(msgType.getKey(), msgs);
-	    }
+        Map<String, List<? extends BaseMessage>> loggables = new HashMap<String, List<? extends BaseMessage>>();
+        loggables.put("http", httpMessages);
+        loggables.put("soap", soapMessages);
+        loggables.put("other", otherMessages);
+        loggables.put("error", errorMessages);
 
-		return rootBuilder.build().toString();
-	}
+        JsonArrayBuilder msgs = Json.createArrayBuilder();
+        for (Entry<String, List<? extends BaseMessage>> msgType : loggables.entrySet()) {
+            for(BaseMessage msg : msgType.getValue()) {
+                String objName = msg.getName();
+                if(objName == null) {
+                    continue;
+                }
+                String objValue = msg.getValue();
+                if(objValue == null) {
+                    objValue = "null";
+                }
+                msgs.add(Json.createObjectBuilder().add(objName, objValue));
+            }
+            rootBuilder.add(msgType.getKey(), msgs);
+        }
 
-	public HashSet<String> getTableList() {
-		return tableList;
-	}
+        return rootBuilder.build().toString();
+    }
 
-	public void setTableList(HashSet<String> tableList) {
-		this.tableList = tableList;
-	}
+    public HashSet<String> getTableList() {
+        return tableList;
+    }
 
-	public String getMessageID() {
-		return messageID;
-	}
+    public void setTableList(HashSet<String> tableList) {
+        this.tableList = tableList;
+    }
 
-	public void setMessageID(String messageID) {
-		this.messageID = messageID;
-	}
+    public String getMessageID() {
+        return messageID;
+    }
 
-	public void setCompanyDetails(CompanyDetails companyDetails) {
-		this.companyDetails = companyDetails;
-	}
+    public void setMessageID(String messageID) {
+        this.messageID = messageID;
+    }
 
-	public CompanyDetails getCompanyDetails() {
-		return companyDetails;
-	}
+    public void setCompanyDetails(CompanyDetails companyDetails) {
+        this.companyDetails = companyDetails;
+    }
+
+    public CompanyDetails getCompanyDetails() {
+        return companyDetails;
+    }
 
 }
