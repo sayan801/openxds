@@ -210,8 +210,12 @@ public class RetrieveDocumentSet extends XdsCommon {
             throw new XdsException("Cannot find repository item for document id, " + doc_id);
         }
         
-        if (repositoryItem == null || repositoryItem.getDataHandler() == null)
-            throw new XdsException("Document is not found in Repository");
+        if (repositoryItem == null || repositoryItem.getDataHandler() == null) {
+            // Dokumentet findes ikke i dette repository - unlad at kaste exception og returner i stedet et element i fejl strukturen 
+            // Side 45, linje 1358 https://silo.tips/download/ihe-it-infrastructure-technical-framework-supplement-cross-enterprise-document-s
+            response.add_error(MetadataSupport.XDSMissingDocument, "Document not found in repository: Document='" + doc_id + "', Repository='" + rep_id + "'", RegistryUtility.exception_details(null), log_message);
+            return null;
+        }
 
         OMText t = MetadataSupport.om_factory.createOMText(repositoryItem.getDataHandler(), optimize);
         
