@@ -408,10 +408,11 @@ public class Message implements LogMessage{
                     continue;
                 }
                 String objValue = msg.getValue();
-                if(objValue == null) {
-                    objValue = "null";
+                if(objValue != null) {
+                    msgs.add(Json.createObjectBuilder().add(objName, objValue));
+                } else {
+                    msgs.add(Json.createObjectBuilder().addNull(objName));
                 }
-                msgs.add(Json.createObjectBuilder().add(objName, objValue));
             }
             rootBuilder.add(msgType.getKey(), msgs);
         }
