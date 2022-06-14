@@ -6,12 +6,7 @@ import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.transport.http.HTTPConduit;
-import org.openehealth.ipf.commons.ihe.xds.core.XdsClientFactory;
-import org.openehealth.ipf.commons.ihe.xds.iti42.Iti42PortType;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;

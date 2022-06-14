@@ -98,7 +98,7 @@ public class FileSystemRepositoryServiceImpl implements XdsRepositoryService {
 	/* (non-Javadoc)
 	 * @see org.openhealthtools.openxds.repository.api.IXdsRepositoryManager#insert()
 	 */
-	public void insert(XdsRepositoryItem item, RepositoryRequestContext context)
+	public boolean insert(XdsRepositoryItem item, RepositoryRequestContext context)
 			throws RepositoryException {
 		IConnectionDescription connection = context.getConnection();
 		CodeSet mimeTypeCodeSet = connection.getCodeSet("mimeType");		
@@ -136,7 +136,7 @@ public class FileSystemRepositoryServiceImpl implements XdsRepositoryService {
 			log.error(e);
 			throw new RepositoryException(e);
 		}
-
+		return true;
 	}
 
 	/* (non-Javadoc)

@@ -255,6 +255,7 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 		int eo_count = m.getExtrinsicObjectIds().size();
 
 		int doc_count = 0;
+		ArrayList<String> savedDocumentIds = new ArrayList<String>();
 		if (this.xds_version == xds_b) {
 			for (OMElement document : MetadataSupport.childrenWithLocalName(pnr, "Document")) {
 				doc_count++;
@@ -287,11 +288,15 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 				}
 
 				if (optimized) {
-					store_document_swa_xop(m, id, datahandler, datahandler.getContentType(), false /* validate_mime_type */);
+					if (store_document_swa_xop(m, id, datahandler, datahandler.getContentType(), false /* validate_mime_type */)) {
+						savedDocumentIds.add(id);
+					}
 				} else {
 					String base64 = binaryNode.getText();
 					byte[] ba = Base64.decodeBase64(base64.getBytes());
-					store_document_mtom(m, id, ba);
+					if (store_document_mtom(m, id, ba)) {
+						savedDocumentIds.add(id);
+					}
 				}
 
 
@@ -312,7 +317,9 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 				if (dh == null) 
 					throw new XDSMissingDocumentException("Cannot find attachment for id " + id);
 
-				store_document_swa_xop(m, id, dh, dh.getContentType(), true /* validate_mime_type */);
+				if (store_document_swa_xop(m, id, dh, dh.getContentType(), true /* validate_mime_type */)) {
+					savedDocumentIds.add(id);
+				}
 			}
 		}
 
@@ -398,7 +405,7 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 				doc_count++;
 				String id = document.getAttributeValue(MetadataSupport.id_qname);
 				String uid = m.getExternalIdentifierValue(id, "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab");  // doc uniqueid
-				if (uid != null) {
+				if (savedDocumentIds.contains(id) && uid != null) {
 					rollbackDocs.add( uid );
 				}
 			}
@@ -461,8 +468,9 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 		this.registry_endpoint = endpoint;
 	}
 
-	private void store_document_swa_xop(Metadata m, String id, DataHandler dataHandler, String content_type, boolean validate_content_type) 
+	private boolean store_document_swa_xop(Metadata m, String id, DataHandler dataHandler, String content_type, boolean validate_content_type)
     throws MetadataException, XdsIOException, XdsInternalException, XdsConfigurationException, XdsException, XDSRepositoryMetadataException {
+		boolean documentStored = false;
 		OMElement extrinsic_object = m.getObjectById(id);
 		String actualDocSize = null;
 		String actualDocHash = null;
@@ -507,7 +515,7 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 		try {
 			RepositoryRequestContext context = new RepositoryRequestContext();
 			context.setConnection(connection);
-			rm.insert(item, context);
+			documentStored = rm.insert(item, context);
 		}catch(RepositoryException e) {
 			throw new XdsException("Error saving document to the repository - " + e.getMessage(), e);
 		}
@@ -518,6 +526,8 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 		m.setSlot(extrinsic_object, "size", actualDocSize);
 		m.setSlot(extrinsic_object, "hash", actualDocHash);
 		//m.setURIAttribute(extrinsic_object, document_uri (uid, mime_type));
+
+		return documentStored;
 	}
 
 	private void validate_size_and_hash(Metadata m, OMElement extrinsic_object,
@@ -540,8 +550,9 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 		}
 	}
 
-	private void store_document_mtom(Metadata m, String id, byte[] bytes) 
+	private boolean store_document_mtom(Metadata m, String id, byte[] bytes)
 	throws MetadataException, XdsIOException, XdsInternalException, XdsConfigurationException, XdsException, XDSRepositoryMetadataException {
+		boolean documentStored = false;
 		OMElement extrinsic_object = m.getObjectById(id);
 
 		if (extrinsic_object == null) 
@@ -576,7 +587,7 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 		try {
 			RepositoryRequestContext context = new RepositoryRequestContext();
 			context.setConnection(connection);
-			rm.insert(item, context);
+			documentStored = rm.insert(item, context);
 		}catch(RepositoryException e) {
 			throw new XdsException("Error saving document to the repository - " + e.getMessage(), e);
 		}
@@ -586,6 +597,8 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 		m.setSlot(extrinsic_object, "size", size_str);
 		m.setSlot(extrinsic_object, "hash", hash_value);
 		//m.setURIAttribute(extrinsic_object, document_uri (uid, mime_type));
+
+		return documentStored;
 	}
 
 	void setRepositoryUniqueId(Metadata m) throws MetadataException {

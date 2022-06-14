@@ -134,7 +134,7 @@ public class RelationalDBRepositoryServiceImpl implements XdsRepositoryService {
 	 * @see org.openhealthtools.openxds.repository.api.IXdsRepositoryManager#insert()
 	 */
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void insert(XdsRepositoryItem item, RepositoryRequestContext context)
+	public boolean insert(XdsRepositoryItem item, RepositoryRequestContext context)
 			throws RepositoryException {
 		Repository bean =null;
 		byte contentBytes[]= null;
@@ -152,7 +152,7 @@ public class RelationalDBRepositoryServiceImpl implements XdsRepositoryService {
 			if (bean.getHash().equals(newHash)) {
 				//The same document is saved previously. Allow it to proceed.
 			    log.info("Document unique id already exists in repository with same hash: " + bean.getDocumentUniqueId());
-				return ;
+				return false;
 			}
 			log.info("Document unique id already exists in repository: "+ bean.getDocumentUniqueId());
 			throw new RepositoryException("document unique id already exist in repository");
@@ -180,7 +180,8 @@ public class RelationalDBRepositoryServiceImpl implements XdsRepositoryService {
         bean.setSize(item.getSize());
         bean.setHash(item.getHash());
         log.info("Inserting document unique id in repository: "+ bean.getDocumentUniqueId());
-		xdsRepositoryManagerDao.insert(bean);		
+		xdsRepositoryManagerDao.insert(bean);
+		return true;
 	}
 	
 	/* (non-Javadoc)

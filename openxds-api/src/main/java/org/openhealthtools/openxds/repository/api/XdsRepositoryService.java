@@ -42,10 +42,11 @@ public interface XdsRepositoryService {
      *
      * @param item the {@link XdsRepositoryItem} to be inserted
      * @param context the {@link RepositoryRequestContext} associated with this request.
+     * @return true, if item is successfully inserted. false, if item is already present.
      * 
      * @throws RepositoryException if failed to insert
      */
-    public void insert(XdsRepositoryItem item, RepositoryRequestContext context) throws RepositoryException;
+    public boolean insert(XdsRepositoryItem item, RepositoryRequestContext context) throws RepositoryException;
 
     /**
      * Inserts a list of {@link XdsRepositoryItem}s. This is possible when a 
