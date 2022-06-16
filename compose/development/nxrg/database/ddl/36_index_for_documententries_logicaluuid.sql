@@ -1,0 +1,1 @@
+CREATE INDEX IF NOT EXISTS documententries_logicaluuid_idx ON documententries (logicaluuid);

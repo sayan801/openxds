@@ -1,0 +1,10 @@
+CREATE INDEX documententries_patientid_idx ON documententries (patientid, patientid_assigningauthorityid, patientid_assigningauthoritytype, id); 
+CREATE INDEX documententries_uniqueid_idx ON documententries (uniqueid, id);
+CREATE INDEX documententries_entryuuid_idx ON documententries (entryuuid, id); 
+CREATE INDEX submissionsets_patientid_idx ON submissionsets (patientid, patientid_assigningauthorityid, patientid_assigningauthoritytype, id); 
+CREATE INDEX submissionsets_uniqueid_idx ON submissionsets (uniqueid, id);
+CREATE INDEX submissionsets_entryuuid_idx ON submissionsets (entryuuid, id); 
+CREATE INDEX associations_entryuuid_idx ON associations (entryuuid, id); 
+CREATE INDEX folders_patientid_idx ON folders (patientid, patientid_assigningauthorityid, patientid_assigningauthoritytype, id); 
+CREATE INDEX folders_uniqueid_idx ON folders (uniqueid, id);
+CREATE INDEX folders_entryuuid_idx ON folders (entryuuid, id); 

@@ -116,7 +116,7 @@ public class OpenXdsIT {
     /**
      * Same document unique id
      * Same hash
-     * Same metadata
+     * Different metadata
      * Different document entry id
      */
     @Test
@@ -126,7 +126,7 @@ public class OpenXdsIT {
 
         CreateResponse createResponse = createAftaleDocumentFor("1234567890", documentId, createStartEnd, createStartEnd, createStartEnd, null, true);
         Assert.assertEquals(Status.SUCCESS, createResponse.getResponse().getStatus());
-        createResponse = createAftaleDocumentFor("1234567890", documentId, createStartEnd, createStartEnd, createStartEnd, null, true);
+        createResponse = createAftaleDocumentFor("1111111111", documentId, createStartEnd, createStartEnd, createStartEnd, null, true);
 //        Assert.assertEquals(Status.SUCCESS, createResponse.getResponse().getStatus()); TODO: Fejler indtil SDS-5616 er løst
 
         RetrieveDocumentSetResponseType retrieveResponse = retrieveDocument(documentId);

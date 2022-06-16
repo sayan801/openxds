@@ -1,0 +1,1 @@
+create index if not exists deleted_documententries_status_attempts on deleted_documententries (deletion_status, deletion_attempts);

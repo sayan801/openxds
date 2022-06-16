@@ -10,9 +10,8 @@ services:
       - openxds-repository-db
       - openxds-repository-logs-db
     environment:
-      # NXRG should be running locally on port 8060
-      - XDS_REGISTRY_HOST=host.docker.internal
-      - XDS_REGISTRY_PORT=8060
+      - XDS_REGISTRY_HOST=nxrg
+      - XDS_REGISTRY_PORT=8080
       - XDS_REGISTRY_URL=/nxrg/iti42
       - XDS_REPOSITORY_UNIQUE_ID=1.3.6.1.4.1.21367.2010.1.2.1125
       - XDS_HOME_COMMUNITY_ID=urn:oid:1.3.6.1.4.1.21367.2010.1.2.2045
@@ -31,8 +30,6 @@ services:
       - "8110:8110"
     volumes:
       - ./logs/repository:/logs/
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
  
   openxds-repository-db:
     image: mariadb:10.1
@@ -55,3 +52,42 @@ services:
     volumes:
       - ../database/log-db/01_openxdslogs.sql:/docker-entrypoint-initdb.d/db.sql
       - ./my.cnf:/etc/mysql/my.cnf
+
+# Nxrg
+  nxrgdb:
+    image: mariadb:10.1.18
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootroot
+      - MYSQL_DATABASE=nxrg
+      - MYSQL_USER=nxrg
+      - MYSQL_PASSWORD=nxrg
+    ports:
+      - "3306:3306"
+
+  cradb:
+    image: registry.nspop.dk/platform/cradb:latest
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+
+  nxrg:
+    image: registry.nspop.dk/components/nxrg:snapshot
+    ports:
+      - "8080:8080"
+    depends_on:
+      - cradb
+    environment:
+      - liquibase_changelog_file=classpath:liquibase-changelog-master.xml
+    volumes:
+      - ./nxrg/module.xml:/pack/wildfly/modules/sds/nxrg/configuration/main/module.xml
+      - ./nxrg/nxrg.properties:/pack/wildfly/modules/sds/nxrg/configuration/main/nxrg.properties
+      - ./nxrg/log4j-nxrg-ws.xml:/pack/wildfly/modules/sds/nxrg/configuration/main/log4j-nxrg-ws.xml
+      - ./nxrg/log4j-nspslalog-nxrg.properties:/pack/wildfly/modules/sds/nxrg/configuration/main/log4j-nspslalog-nxrg.properties
+      - ./nxrg/log4j.properties:/pack/wildfly/modules/sds/nxrg/configuration/main/log4j.properties
+      - ./nxrg/nspslalog-nxrg.properties:/pack/wildfly/modules/sds/nxrg/configuration/main/nspslalog-nxrg.properties
+      - ./nxrg/crl.skip:/pack/wildfly/modules/system/layers/base/dk/sds/nsp/accesshandler/main/crl.skip
+      - ./nxrg/nxrg-ds.xml:/pack/wildfly/standalone/deployments/nxrg-ds.xml
+      - ./nxrg/database/ddl:/pack/wildfly/modules/sds/nxrg/configuration/main/ddl:ro
+      - ./nxrg/database/test:/pack/wildfly/modules/sds/nxrg/configuration/main/test:ro
+      - ./nxrg/database/liquibase-changelog-master.xml:/pack/wildfly/modules/sds/nxrg/configuration/main/liquibase-changelog-master.xml
+      - ./nxrg/database/liquibase-changelog-test.xml:/pack/wildfly/modules/sds/nxrg/configuration/main/liquibase-changelog-test.xml
+      - ./logs/nxrg:/pack/wildfly/standalone/log

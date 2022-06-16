@@ -1,0 +1,2 @@
+-- Used by the XDSCleanup service for selecting documententries to delete.
+create index if not exists documententries_servicestarttime_creation_time on documententries (servicestarttime, creation_time);

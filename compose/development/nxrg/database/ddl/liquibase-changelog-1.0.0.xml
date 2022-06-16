@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.3.xsd">
+
+	<changeSet author="KIT" id="init">
+		<sqlFile path="ddl/09_submissionset.sql"/>
+		<sqlFile path="ddl/10_documententry.sql"/>
+		<sqlFile path="ddl/11_folder.sql"/>
+		<sqlFile path="ddl/12_association.sql"/>
+		<sqlFile path="ddl/21_documententry_author.sql"/>
+		<sqlFile path="ddl/23_documententry_eventcode.sql"/>
+		<sqlFile path="ddl/24_documententry_confidentialitycode.sql"/>
+		<sqlFile path="ddl/26_documententry_referenceid.sql"/>
+		<sqlFile path="ddl/30_alter_uniqueid.sql"/>
+	</changeSet>
+</databaseChangeLog>

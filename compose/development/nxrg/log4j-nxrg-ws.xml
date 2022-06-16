@@ -1,0 +1,39 @@
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+
+	<appender name="debuglogprovider" class="org.apache.log4j.RollingFileAppender">
+		<param name="file"
+			value="${jboss.server.log.dir}/nxrg-ws.log" />
+		<param name="append" value="true" />
+		<param name="immediateFlush" value="true" />
+		<param name="maxFileSize" value="50MB" />
+		<param name="maxBackupIndex" value="2" />
+		<param name="encoding" value="UTF-8"/>
+		<layout class="org.apache.log4j.EnhancedPatternLayout">
+			<param name="conversionPattern" value="%d{ISO8601}{UTC}Z %-5p %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="PerformanceFile" class="org.apache.log4j.RollingFileAppender">
+		<param name="file"
+			value="${jboss.server.log.dir}/nxrg-ws-performance.log" />
+		<param name="append" value="true" />
+		<param name="immediateFlush" value="true" />
+		<param name="maxFileSize" value="50MB" />
+		<param name="maxBackupIndex" value="2" />
+		<param name="encoding" value="UTF-8"/>
+		<layout class="org.apache.log4j.EnhancedPatternLayout">
+			<param name="conversionPattern" value="%d{ISO8601}{UTC}Z FlowId: %x, %-5p %c - %m%n" />
+		</layout>
+	</appender>
+	
+	<logger name="performancelogger" additivity="false">
+		<level value="OFF" />
+		<appender-ref ref="PerformanceFile" />
+	</logger>
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="CONSOLE" />
+ 	</root>
+</log4j:configuration>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<datasources>
+    <datasource jndi-name="java:/NXRGDS" pool-name="NXRGDS" enabled="true" use-ccm="true">
+        <connection-url>jdbc:mysql://nxrgdb:3306/nxrg</connection-url>
+        <driver>mysql</driver>
+        <security>
+            <user-name>nxrg</user-name>
+            <password>nxrg</password>
+        </security>
+        <validation>
+            <check-valid-connection-sql>select 1</check-valid-connection-sql>
+            <validate-on-match>true</validate-on-match>
+            <background-validation>true</background-validation>
+            <background-validation-millis>10000</background-validation-millis>
+        </validation>
+    </datasource>
+</datasources>
