@@ -1,17 +1,6 @@
-FROM openjdk:7-jdk
-
-ARG MAVEN_VERSION=3.3.9
-ARG USER_HOME_DIR="/root"
-
-# Install Maven in the correct version
-RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-  && curl -fsSL http://apache.osuosl.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
-    | tar -xzC /usr/share/maven --strip-components=1  \
-  && ln -s /usr/share/maven/bin/mvn  /usr/bin/mvn
-ENV MAVEN_HOME /usr/share/maven
-ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
-
-RUN apt-get update && apt-get -y install gettext-base && apt-get clean && rm -rf /var/lib/apt/lists/*
+ARG NSPBUILDER_TAG=2.1.0
+ARG BASE_TAG=3.0.2
+FROM registry.nspop.dk/tools/nspbuilder:${NSPBUILDER_TAG} AS bob
 
 COPY apache-axis2 /pack/openxds/apache-axis2/
 COPY common-utils /pack/openxds/common-utils/
@@ -33,8 +22,17 @@ COPY README.txt /pack/openxds/
 COPY LICENSE.txt /pack/openxds/
 COPY NOTICE.txt  /pack/openxds/
 
-RUN cd /pack/openxds && mvn clean install -DskipTests 
-#RUN cd /pack/openxds && mvn clean install -DskipTests eclipse:eclipse -DdownloadSources
+RUN mkdir /pack/openxds/build
+RUN cd /pack/openxds && mvn clean install
+
+
+#OpenXDS is not compatible with Java 8 and above because of Spring 2.5.6
+#Hence, we cannot use the normal NSP base image
+FROM openjdk:7u211-jdk-alpine3.9
+
+# Only needed for envsubst in entrypoint?
+RUN apk update
+RUN apk add gettext
 
 # Copy template files
 RUN mkdir -p /pack/openxds-templates/
@@ -44,9 +42,11 @@ COPY etc/openxds.properties /pack/openxds-templates
 COPY etc/repository.jdbc.cfg.xml /pack/openxds-templates
 COPY etc/XdsRepositoryConnections.xml /pack/openxds-templates
 
-# Copy entrypoint
+# Copy entrypoint and jar
+RUN mkdir =p /pack/openxds
 COPY entrypoint.sh /pack/openxds
 RUN chmod +x /pack/openxds/entrypoint.sh
+COPY --from=bob /pack/openxds/build/ /pack/openxds/
 
 RUN echo "Europe/Copenhagen" > /etc/timezone
 
