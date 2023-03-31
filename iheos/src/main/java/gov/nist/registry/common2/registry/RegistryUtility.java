@@ -23,7 +23,7 @@ public class RegistryUtility {
 		try {
 			schema_messages = SchemaValidation.validate_local(ahqr, metadata_type);
 		} catch (Exception e) {
-			throw new XdsInternalException("Schema Validation threw internal error: " + e.getMessage());
+			throw new XdsInternalException("Schema Validation threw internal error: " + e.getMessage(), e);
 		}
 		if (schema_messages != null && schema_messages.length() > 0)
 			throw new SchemaValidationException("Input did not validate against schema:" + schema_messages);

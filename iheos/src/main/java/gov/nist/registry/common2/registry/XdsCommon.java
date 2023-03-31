@@ -86,7 +86,7 @@ public class XdsCommon  {
 		if (e == null) 
 			return "";
 
-		return e.getClass().getName() + "  " + e.getMessage() + ExceptionUtil.exception_details(e, 10);
+		return e.getClass().getName() + "  " + e.getMessage() + ExceptionUtil.exception_details(e, 100000);
 	}
 
 	protected void log_response()  {
