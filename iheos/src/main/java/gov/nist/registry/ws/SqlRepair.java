@@ -144,7 +144,7 @@ public class SqlRepair {
 			OMElement q = (OMElement) it.next();
 			return q;
 		} catch (JaxenException e) {
-			throw new XdsInternalException("Jaxen Exception inside SQLRepair:find_sql_query_element");
+			throw new XdsInternalException("Jaxen Exception inside SQLRepair:find_sql_query_element", e);
 		}
 	}
 	

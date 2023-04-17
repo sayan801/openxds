@@ -495,11 +495,11 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
         try{
             isize = item.getSize(); 
         	actualDocSize = Integer.toString(isize);          			
-		}catch (Exception e) {throw new XdsInternalException("Error calculating size on repository file");}
+		}catch (Exception e) {throw new XdsInternalException("Error calculating size on repository file", e);}
 		
 	    try{
 	    	actualDocHash = (new Sha1Bean()).getSha1(item.getDataHandler(), isize );
-        } catch (Exception e) {	throw new XdsInternalException("Error calculating hash on repository file");}
+        } catch (Exception e) {	throw new XdsInternalException("Error calculating hash on repository file", e);}
             
 		validate_size_and_hash(m, extrinsic_object, actualDocSize, actualDocHash);
 
@@ -574,7 +574,7 @@ public class ProvideAndRegisterDocumentSet extends XdsCommon {
 		try {
 			hash_value = (new Sha1Bean()).getSha1(dataHandler, bytes.length);
 		} catch (Exception e) {
-			throw new XdsInternalException("Error calculating hash on repository file");
+			throw new XdsInternalException("Error calculating hash on repository file", e);
 		}
 
 		validate_size_and_hash(m, extrinsic_object, size_str, hash_value);

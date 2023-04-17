@@ -138,7 +138,7 @@ public class RetrieveB extends OmLogger {
 		try {
 			RegistryUtility.schema_validate_local(result, MetadataTypes.METADATA_TYPE_RET);
 		} catch (SchemaValidationException e) {
-			throw new XdsInternalException("Schema validation of Retrieve Response: " + e.getMessage());
+			throw new XdsInternalException("Schema validation of Retrieve Response: " + e.getMessage(), e);
 		}
 
 		// validate response contents

@@ -43,7 +43,7 @@ public class Util {
 		try {
 			parser = XMLInputFactory.newInstance().createXMLStreamReader(is);
 		} catch (XMLStreamException e) {
-			throw new XdsInternalException("Could not create XMLStreamReader from InputStream");
+			throw new XdsInternalException("Could not create XMLStreamReader from InputStream", e);
 		} 
 
 		//		create the builder
@@ -64,9 +64,9 @@ public class Util {
 		try {
 			parser = XMLInputFactory.newInstance().createXMLStreamReader(new FileInputStream(infile));
 		} catch (XMLStreamException e) {
-			throw new XdsInternalException("Could not create XMLStreamReader from " + infile.getName());
+			throw new XdsInternalException("Could not create XMLStreamReader from " + infile.getName(), e);
 		} catch (FileNotFoundException e) {
-			throw new XdsInternalException("Could not find input file " + infile.getAbsolutePath());
+			throw new XdsInternalException("Could not find input file " + infile.getAbsolutePath(), e);
 		}
 
 		//		create the builder
@@ -87,7 +87,7 @@ public class Util {
 		try {
 			parser = XMLInputFactory.newInstance().createXMLStreamReader(new ByteArrayInputStream(input.getBytes()));
 		} catch (Exception e) {
-			throw new XdsInternalException("Could not create XMLStreamReader from string: " + input.substring(0, 100) + "...");
+			throw new XdsInternalException("Could not create XMLStreamReader from string: " + input.substring(0, 100) + "...", e);
 		} 
 
 		//		create the builder
@@ -95,7 +95,7 @@ public class Util {
 		try {
 			builder = new StAXOMBuilder(parser);
 		} catch (Exception e) {
-			throw new XdsInternalException("Util.parse_xml(): Could not create StAXOMBuilder from parser");
+			throw new XdsInternalException("Util.parse_xml(): Could not create StAXOMBuilder from parser", e);
 		} 
 
 		OMElement documentElement = null; 
@@ -107,7 +107,7 @@ public class Util {
 		} catch (Exception e) {
 			throw new XdsInternalException("Could not create XMLStreamReader (in Util.parse_xml()) from string: " + 
 					input.substring(0, (input.length() < 100) ? input.length() : 100) + 
-			"...");
+			"...", e);
 		}
 		return documentElement;
 	}

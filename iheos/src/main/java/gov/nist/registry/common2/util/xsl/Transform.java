@@ -217,18 +217,18 @@ public class Transform {
 		try {
 			in = new StreamSource(inputStream);
 		} catch (Exception e) {
-			throw new XdsInternalException("XSL Transform: error creating input stream source: " + e.getMessage());
+			throw new XdsInternalException("XSL Transform: error creating input stream source: " + e.getMessage(), e);
 		}
 		StreamResult out;
 		try {
 			out = new StreamResult(outputStream);
 		} catch (Exception e) {
-			throw new XdsInternalException("XSL Transform: error creating ouput stream source: " + e.getMessage());
+			throw new XdsInternalException("XSL Transform: error creating ouput stream source: " + e.getMessage(), e);
 		}
 		try {
 			transformer.transform(in, out);
 		} catch (Exception e) {
-			throw new XdsInternalException("XSL Transform: error running transform: " + e.getMessage());
+			throw new XdsInternalException("XSL Transform: error running transform: " + e.getMessage(), e);
 		}
 	}
 

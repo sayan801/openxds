@@ -169,7 +169,7 @@ public class SchemaValidation implements MetadataTypes {
 		try {
 			p=new DOMParser();
 		} catch (Exception e) {
-			throw new XdsInternalException("DOMParser failed: " + e.getMessage());
+			throw new XdsInternalException("DOMParser failed: " + e.getMessage(), e);
 		}
 		try {        
 			p.setFeature( "http://xml.org/sax/features/validation", true );
@@ -181,7 +181,7 @@ public class SchemaValidation implements MetadataTypes {
 			p.setErrorHandler( errors );
 		} catch (SAXException e) {
 			throw new XdsInternalException("SchemaValidation: error in setting up parser property: SAXException thrown with message: " 
-					+ e.getMessage());             
+					+ e.getMessage(), e);
 		}
 
 		// run parser and collect parser and schema errors
@@ -192,7 +192,7 @@ public class SchemaValidation implements MetadataTypes {
 			p.parse(is);
 		} catch (Exception e) {
 			throw new XdsInternalException("SchemaValidation: XML parser/Schema validation error: " + 
-					exception_details(e));
+					exception_details(e), e);
 		}
 		String errs = errors.getErrors();
 //		if (errs.length() != 0) {

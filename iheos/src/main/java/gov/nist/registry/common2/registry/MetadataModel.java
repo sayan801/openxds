@@ -81,7 +81,7 @@ public class MetadataModel {
 
 	void Must(String msg, boolean tst) throws Exception {
 		if (!tst)
-			throw_error(msg);
+			throw new XdsInternalException(msg);
 	}
 
 	void must(String msg, boolean tst) {
@@ -95,21 +95,6 @@ public class MetadataModel {
 		}
 		return this;
 	}
-
-	public boolean hasErrors() {
-		return errors.size() > 0;
-	}
-
-	void throw_error(String msg) throws Exception {
-//		try {
-			throw new XdsInternalException(msg);
-//		} catch (Exception e) {
-//			System.out.println(exception_details(e));
-//			System.exit(1);
-//		}
-
-	}
-
 	public OMElement peek_me(int distance) throws Exception {
 		// distance == 0  is top of stack
 		//            -1  is next
