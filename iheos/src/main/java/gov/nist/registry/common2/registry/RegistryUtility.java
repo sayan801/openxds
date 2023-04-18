@@ -16,20 +16,38 @@ import org.openhealthtools.openxds.log.LogMessage;
 import org.openhealthtools.openxds.log.LoggerException;
 
 public class RegistryUtility {
-
+	
 	static public void schema_validate_local(OMElement ahqr, int metadata_type)
-	throws XdsInternalException, SchemaValidationException {
+			throws XdsInternalException, SchemaValidationException {
 		String schema_messages = null;
-		try {
-			schema_messages = SchemaValidation.validate_local(ahqr, metadata_type);
-		} catch (Exception e) {
-			throw new XdsInternalException("Schema Validation threw internal error: " + e.getMessage(), e);
+		int maxRetries = 3;
+		int numRetries = 0;
+		while (numRetries < maxRetries) {
+			try {
+				schema_messages = SchemaValidation.validate_local(ahqr, metadata_type);
+				break; // break out of the loop if validation succeeds
+			} catch (Exception e) {
+				if (numRetries == maxRetries - 1) {
+					// if this is the last retry, throw an exception
+					throw new XdsInternalException("Schema Validation threw internal error: " + e.getMessage(), e);
+				} else {
+					// otherwise, log the error and retry after a short delay
+					System.out.println("Caught exception while validating schema. Retrying in 100ms.");
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException ex) {
+						// ignore
+					}
+				}
+			}
+			numRetries++;
 		}
 		if (schema_messages != null && schema_messages.length() > 0)
 			throw new SchemaValidationException("Input did not validate against schema:" + schema_messages);
 	}
 
- 	static public RegistryErrorList metadata_validator(Metadata m, boolean is_submit, boolean isPnR, IConnectionDescription connection) throws XdsException {
+
+	static public RegistryErrorList metadata_validator(Metadata m, boolean is_submit, boolean isPnR, IConnectionDescription connection) throws XdsException {
 		RegistryErrorList rel = new RegistryErrorList((m.isVersion2() ? RegistryErrorList.version_2 : RegistryErrorList.version_3));
 		try {
 			Validator v = new Validator(m, rel, is_submit, !m.isVersion2(), (LogMessage)null, isPnR, connection);
