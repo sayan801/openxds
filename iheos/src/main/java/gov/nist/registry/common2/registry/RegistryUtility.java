@@ -16,7 +16,6 @@ import org.openhealthtools.openxds.log.LogMessage;
 import org.openhealthtools.openxds.log.LoggerException;
 
 public class RegistryUtility {
-	
 	static public void schema_validate_local(OMElement ahqr, int metadata_type)
 			throws XdsInternalException, SchemaValidationException {
 		String schema_messages = null;
@@ -25,7 +24,10 @@ public class RegistryUtility {
 		while (numRetries < maxRetries) {
 			try {
 				schema_messages = SchemaValidation.validate_local(ahqr, metadata_type);
-				break; // break out of the loop if validation succeeds
+				if (schema_messages == null || schema_messages.length() == 0) {
+					// validation succeeded, break out of the loop
+					break;
+				}
 			} catch (Exception e) {
 				if (numRetries == maxRetries - 1) {
 					// if this is the last retry, throw an exception
@@ -42,8 +44,11 @@ public class RegistryUtility {
 			}
 			numRetries++;
 		}
-		if (schema_messages != null && schema_messages.length() > 0)
+
+		if (schema_messages != null && schema_messages.length() > 0) {
+			// validation failed, throw an exception
 			throw new SchemaValidationException("Input did not validate against schema:" + schema_messages);
+		}
 	}
 
 
