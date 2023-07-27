@@ -284,7 +284,7 @@ public abstract class QueryContents {
 
 	void run_schema() {
 		try {
-			SchemaValidation.validate_local(result_xml	, MetadataTypes.METADATA_TYPE_SQ);
+			SchemaValidation.validate(result_xml	, MetadataTypes.METADATA_TYPE_SQ);
 		} catch (Exception e) {
 			this.addException(e);
 		}

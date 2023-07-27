@@ -22,31 +22,12 @@ import org.xml.sax.SAXException;
 import com.misyshealthcare.connect.util.StringUtil;
 
 public class SchemaValidation implements MetadataTypes {
-
-	public static String validate(OMElement ele, int metadataType)  throws XdsInternalException {
-		return validate_local(ele, metadataType);
+	public static String validate(OMElement ele, int metadataType) throws XdsInternalException {
+        return validate(ele.toString(), metadataType);
 	}
-
-	// The only known use case for localhost validation failing is when this is called from
-	// xdstest2 in which case it is trying to call home to reference the schema files.
-	// What is really needed is a configuration parm that points the reference to the local filesystem
-	// and include the schema files in the xdstest2tool environment.
-
-	// port 80 does not exist for requests on-machine (on the server). only requests coming in from
-	// off-machine go through the firewall where the port translation happens.
-
-	// even though this says validate_local, it is used by all requests
-	public static String validate_local(OMElement ele, int metadataType)  throws XdsInternalException {
-		String msg;
-		msg = SchemaValidation.run(ele.toString(), metadataType);
-		return msg;
-	}
-
 
 	// empty string as result means no errors
-	static private String run(String metadata, int metadataType) throws XdsInternalException {
-
-
+	static private String validate(String metadata, int metadataType) throws XdsInternalException {
 		MyErrorHandler errors = null;
 		DOMParser p = null;
 		//Check System property first which takes a priority
@@ -57,12 +38,12 @@ public class SchemaValidation implements MetadataTypes {
 		if (localSchema == null) {
 			String SchemaLoc = PropertyFacade.getString("xds.schema.dir");
 			if (!StringUtil.goodString(SchemaLoc)) {
-			    throw new XdsInternalException("The xds.schema.dir property is not defined in openxds.properties");				
+			    throw new XdsInternalException("The xds.schema.dir property is not defined in openxds.properties");
 			}
-			
+
 			URL repoPath = SchemaValidation.class.getResource(SchemaLoc);
 			if (repoPath != null) {
-				localSchema = repoPath.getPath();				
+				localSchema = repoPath.getPath();
 			} else {
 				File file =new File(SchemaLoc);
 				try{
@@ -73,16 +54,16 @@ public class SchemaValidation implements MetadataTypes {
 			}
 		}
 		if (!StringUtil.goodString(localSchema)) {
-		    throw new XdsInternalException("The xds.schema.dir property is invalid");				
+		    throw new XdsInternalException("The xds.schema.dir property is invalid");
 		}
 
-		
+
   		// Decode schema location
 		String schemaLocation;
 		switch (metadataType) {
 		case METADATA_TYPE_Rb:
-			schemaLocation = "urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0 " + 
-			((localSchema == null) ? 
+			schemaLocation = "urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0 " +
+			((localSchema == null) ?
 					"/v3/lcm.xsd":
 					localSchema + "/v3/lcm.xsd");
 			break;
@@ -98,38 +79,38 @@ public class SchemaValidation implements MetadataTypes {
 			"urn:oasis:names:tc:ebxml-regrep:query:xsd:2.1 " +
 			((localSchema == null) ?
 			"/v2/query.xsd " :
-			localSchema + "/v2/query.xsd "	) + 
-			
+			localSchema + "/v2/query.xsd "	) +
+
 			"urn:oasis:names:tc:ebxml-regrep:registry:xsd:2.1 " +
 			((localSchema == null) ?
 			"/v2/rs.xsd" :
 			localSchema + "/v2/rs.xsd" ) ;
-			
+
 			break;
 		case METADATA_TYPE_SQ:
-			schemaLocation = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0 " + 
+			schemaLocation = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0 " +
 			((localSchema == null) ?
-			"/v3/query.xsd " : 
+			"/v3/query.xsd " :
 			localSchema + "/v3/query.xsd "  ) +
-			
-			"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 " + 
+
+			"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 " +
 			((localSchema == null) ?
 			"/v3/rs.xsd" :
 			localSchema + "/v3/rs.xsd" );
 			break;
 		case METADATA_TYPE_RET:
-			schemaLocation = "urn:ihe:iti:xds-b:2007 " + 
+			schemaLocation = "urn:ihe:iti:xds-b:2007 " +
 			((localSchema == null) ?
 			"/v3/XDS.b_DocumentRepository.xsd " :
 				localSchema + "/v3/XDS.b_DocumentRepository.xsd ") +
-			
-			"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 " + 
+
+			"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 " +
 			((localSchema == null) ?
 			"/v3/rs.xsd" :
 			localSchema + "/v3/rs.xsd"	);
 			break;
 		case AUDIT_LOG:
-			schemaLocation = "noNamespaceSchemaLocation " + 
+			schemaLocation = "noNamespaceSchemaLocation " +
 			((localSchema == null) ?
 			"/audit/healthcare-security-audit.xsd " :
 				localSchema + "/audit/healthcare-security-audit.xsd ");
@@ -138,32 +119,32 @@ public class SchemaValidation implements MetadataTypes {
 			throw new XdsInternalException("SchemaValidation: invalid metadata type = " + metadataType);
 		}
 
-		schemaLocation += " urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0 " + 
+		schemaLocation += " urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0 " +
 		((localSchema == null) ?
 		"/v3/rim.xsd" :
 			localSchema + 	"/v3/rim.xsd");
 
-		schemaLocation += " http://schemas.xmlsoap.org/soap/envelope/ " + 
+		schemaLocation += " http://schemas.xmlsoap.org/soap/envelope/ " +
 		((localSchema == null) ?
 		"/v3/soap.xsd" :
 			localSchema + 	"/v3/soap.xsd");
 
 
-		schemaLocation += " http://docs.oasis-open.org/wsn/b-2 " + 
+		schemaLocation += " http://docs.oasis-open.org/wsn/b-2 " +
 		((localSchema == null) ?
 		"/wsn/b-2.xsd" :
 			localSchema + 	"/wsn/b-2.xsd");
 
-		schemaLocation += " http://docs.oasis-open.org/wsn/br-2 " + 
+		schemaLocation += " http://docs.oasis-open.org/wsn/br-2 " +
 		((localSchema == null) ?
 		"/wsn/br-2.xsd" :
 			localSchema + 	"/wsn/br-2.xsd");
 
-		schemaLocation += " http://docs.oasis-open.org/wsn/t-1 " + 
+		schemaLocation += " http://docs.oasis-open.org/wsn/t-1 " +
 		((localSchema == null) ?
 		"/wsn/t-1.xsd" :
 			localSchema + 	"/wsn/t-1.xsd");
-		
+
 
 		// build parse to do schema validation
 		try {
@@ -171,7 +152,7 @@ public class SchemaValidation implements MetadataTypes {
 		} catch (Exception e) {
 			throw new XdsInternalException("DOMParser failed: " + e.getMessage(), e);
 		}
-		try {        
+		try {
 			p.setFeature( "http://xml.org/sax/features/validation", true );
 			p.setFeature("http://apache.org/xml/features/validation/schema", true);
 			p.setProperty("http://apache.org/xml/properties/schema/external-schemaLocation",
@@ -180,7 +161,7 @@ public class SchemaValidation implements MetadataTypes {
 			errors.setSchemaFile(schemaLocation);
 			p.setErrorHandler( errors );
 		} catch (SAXException e) {
-			throw new XdsInternalException("SchemaValidation: error in setting up parser property: SAXException thrown with message: " 
+			throw new XdsInternalException("SchemaValidation: error in setting up parser property: SAXException thrown with message: "
 					+ e.getMessage(), e);
 		}
 
@@ -191,7 +172,7 @@ public class SchemaValidation implements MetadataTypes {
 			InputSource is = new InputSource(new StringReader(metadata2));
 			p.parse(is);
 		} catch (Exception e) {
-			throw new XdsInternalException("SchemaValidation: XML parser/Schema validation error: " + 
+			throw new XdsInternalException("SchemaValidation: XML parser/Schema validation error: " +
 					exception_details(e), e);
 		}
 		String errs = errors.getErrors();
