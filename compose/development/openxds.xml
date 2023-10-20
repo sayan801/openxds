@@ -1,0 +1,61 @@
+
+<site name="openxds" owner="default">
+   <transaction name="xdrpr" secure="1"/>
+   <transaction name="xdrpr" secure="0"/>
+   <transaction name="r.b" secure="1"/>
+   <transaction name="r.b" secure="0"/>
+   <transaction name="rodde" secure="1"/>
+   <transaction name="rodde" secure="0"/>
+   <transaction name="sq.b" secure="1"/>
+   <transaction name="sq.b" secure="0"/>
+   <transaction name="update.b" secure="1"/>
+   <transaction name="update.b" secure="0"/>
+   <transaction name="rmu.b" secure="1"/>
+   <transaction name="rmu.b" secure="0"/>
+   <transaction name="mpq" secure="1"/>
+   <transaction name="mpq" secure="0"/>
+   <transaction name="rm.b" secure="1"/>
+   <transaction name="rm.b" secure="0"/>
+   <transaction name="xadpid" secure="1"/>
+   <transaction name="xadpid" secure="0"/>
+   <transaction name="ret.b" secure="0">http://openxds-repository-server:8020/axis2/services/xdsrepositoryb</transaction>
+   <transaction name="ret.b" secure="1"/>
+   <transaction name="pr.b" secure="1"/>
+   <transaction name="pr.b" secure="0">http://openxds-repository-server:8020/axis2/services/xdsrepositoryb</transaction>
+   <transaction name="rd.b" secure="1"/>
+   <transaction name="rd.b" secure="0"/>
+   <transaction name="isr" secure="1"/>
+   <transaction name="isr" secure="0"/>
+   <transaction name="igq" secure="1"/>
+   <transaction name="igq" secure="0"/>
+   <transaction name="igr" secure="1"/>
+   <transaction name="igr" secure="0"/>
+   <transaction name="ret.iig.b" secure="1"/>
+   <transaction name="ret.iig.b" secure="0"/>
+   <transaction name="xcq" secure="1"/>
+   <transaction name="xcq" secure="0"/>
+   <transaction name="xcr" secure="1"/>
+   <transaction name="xcr" secure="0"/>
+   <transaction name="xcpd" secure="1"/>
+   <transaction name="xcpd" secure="0"/>
+   <transaction name="xcdrp" secure="1"/>
+   <transaction name="xcdrp" secure="0"/>
+   <transaction name="xcrmu.b" secure="1"/>
+   <transaction name="xcrmu.b" secure="0"/>
+   <transaction name="xcr.ids.b" secure="1"/>
+   <transaction name="xcr.ids.b" secure="0"/>
+   <transaction name="ret.ids.b" secure="1"/>
+   <transaction name="ret.ids.b" secure="0"/>
+   <transaction name="wado.ret.ids" secure="1"/>
+   <transaction name="wado.ret.ids" secure="0"/>
+   <transaction name="pif" secure="1"/>
+   <transaction name="pif" secure="0"/>
+   <transaction name="any" secure="1"/>
+   <transaction name="any" secure="0"/>
+   <repository uid="1.3.6.1.4.1.21367.2010.1.2.1125"
+         secure="0">http://openxds-repository-server:8020/axis2/services/xdsrepositoryb</repository>
+   <repository uid="1.3.6.1.4.1.21367.2010.1.2.1125"
+         secure="1"/>
+   <patientIdFeed host="null" port="null"/>
+   <useFilterProxy>false</useFilterProxy>
+</site>

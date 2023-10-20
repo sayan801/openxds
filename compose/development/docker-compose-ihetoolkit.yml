@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:      
+      
+  Openxdsiheostoolkit2:
+    image: kvalitetsit/iheos-toolkit2:1.2.0
+    ports:
+     - "3308:8080"
+    volumes:
+     - ./logs/iheos_savefiles:/path/to/my/external/cache
+     - ./openxds.xml:/path/to/my/external/cache/actors/default/openxds.xml
