@@ -3,13 +3,13 @@
    <transaction name="xdrpr" secure="1"/>
    <transaction name="xdrpr" secure="0"/>
    <transaction name="r.b" secure="1"/>
-   <transaction name="r.b" secure="0"/>
+   <transaction name="r.b" secure="0">http://nxrg:8080/nxrg/iti42</transaction>
    <transaction name="rodde" secure="1"/>
-   <transaction name="rodde" secure="0"/>
+   <transaction name="rodde" secure="0">http://nxrg:8080/nxrg/iti61</transaction>
    <transaction name="sq.b" secure="1"/>
-   <transaction name="sq.b" secure="0"/>
+   <transaction name="sq.b" secure="0">http://nxrg:8080/nxrg/iti18</transaction>
    <transaction name="update.b" secure="1"/>
-   <transaction name="update.b" secure="0"/>
+   <transaction name="update.b" secure="0">http://nxrg:8080/nxrg/iti57</transaction>
    <transaction name="rmu.b" secure="1"/>
    <transaction name="rmu.b" secure="0"/>
    <transaction name="mpq" secure="1"/>
