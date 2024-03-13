@@ -5,9 +5,9 @@ services:
   openxds:    
     image: registry.nspop.dk/components/openxds:0.0.1
     environment:
-      - XDS_REGISTRY_HOST={{ app_openxds_opentext_host }}
-      - XDS_REGISTRY_PORT={{ app_openxds_opentext_port }}
-      - XDS_REGISTRY_PATH={{ app_openxds_opentext_path }}
+      - XDS_REGISTRY_HOST={{ app_openxds_nxrg_host }}
+      - XDS_REGISTRY_PORT={{ app_openxds_nxrg_port }}
+      - XDS_REGISTRY_PATH={{ app_openxds_nxrg_path }}
       - XDS_REPOSITORY_UNIQUE_ID={{ app_openxds_unique_repository_oid }}
       - XDS_HOME_COMMUNITY_ID={{ app_openxds_home_community }}
       - XDS_DB_DIALECT=org.hibernate.dialect.MySQLDialect
@@ -20,7 +20,3 @@ services:
       - XDS_DB_LOGS_PASSWORD={{ app_openxds_logdb_password }}
       - XARGS=-Xmx2048m
       - XDS_LOG_LEVEL=DEBUG
-    ports:
-      - "{{ comp_openxds_port }}:8020"
-    volumes:
-      - /pack/log/openxds:/logs/
