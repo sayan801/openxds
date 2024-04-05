@@ -7,7 +7,7 @@ services:
     environment:
       - XDS_REGISTRY_HOST={{ app_openxds_nxrg_host }}
       - XDS_REGISTRY_PORT={{ app_openxds_nxrg_port }}
-      - XDS_REGISTRY_PATH={{ app_openxds_nxrg_path }}
+      - XDS_REGISTRY_URL={{ app_openxds_nxrg_path }}
       - XDS_REPOSITORY_UNIQUE_ID={{ app_openxds_unique_repository_oid }}
       - XDS_HOME_COMMUNITY_ID={{ app_openxds_home_community }}
       - XDS_DB_DIALECT=org.hibernate.dialect.MySQLDialect
