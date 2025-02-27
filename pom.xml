@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -24,7 +24,7 @@
     <licenses>
         <license>
             <name>Apache License Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
 
@@ -91,7 +91,7 @@
     </developers>
     <organization>
     	<name>Open Health Tools</name>
-    	<url>http://www.openhealthtools.org/</url>
+    	<url>https://www.openhealthtools.org/</url>
     </organization>
     
     <build>
@@ -121,8 +121,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -224,23 +224,23 @@
     <repositories>
         <repository>
             <id>central</id>
-            <url>http://repo1.maven.org/maven2</url>
+            <url>https://repo1.maven.org/maven2</url>
         </repository>
         <repository>
             <id>appfuse</id>
-            <url>http://static.appfuse.org/repository</url>
+            <url>https://repo1.maven.org/maven2</url>
         </repository>
 		<repository>
 			<id>sun1</id>
-			<url>http://download.java.net/maven/1</url>
+			<url>https://download.java.net/maven/1</url>
 		</repository>
 		<repository>
 			<id>sun2</id>
-			<url>http://download.java.net/maven/2</url>
+			<url>https://download.java.net/maven/2</url>
 		</repository>
 		<repository>
 			<id>ibilio</id>
-			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+			<url>https://mirrors.ibiblio.org/pub/mirrors/maven2</url>
 		</repository>		
         <repository>
             <id>openxds</id>
@@ -255,12 +255,12 @@
     <pluginRepositories>
         <pluginRepository>
             <id>appfuse</id>
-            <url>http://static.appfuse.org/repository</url>
+            <url>https://repo1.maven.org/maven2</url>
         </pluginRepository>
 		<pluginRepository>
 		    <id>mc-release</id>
 		    <name>Local Maven repository of releases</name>
-		    <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+		    <url>https://mc-repo.googlecode.com/svn/maven2/releases</url>
 		    <snapshots>
 		        <enabled>false</enabled>
 		    </snapshots>
@@ -540,7 +540,7 @@
             <properties>
                 <cargo.container>jboss4x</cargo.container>
                 <cargo.container.home>${env.JBOSS_HOME}</cargo.container.home>
-                <cargo.container.url>http://easynews.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip</cargo.container.url>
+                <cargo.container.url>https://easynews.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip</cargo.container.url>
             </properties>
         </profile>
     </profiles>
@@ -570,7 +570,7 @@
         <!-- Cargo settings -->
         <cargo.container>tomcat5x</cargo.container>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
-        <cargo.container.url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.14/bin/apache-tomcat-6.0.14.zip</cargo.container.url>
+        <cargo.container.url>https://archive.apache.org/dist/tomcat/tomcat-6/v6.0.14/bin/apache-tomcat-6.0.14.zip</cargo.container.url>
         <cargo.host>localhost</cargo.host>
         <cargo.port>8081</cargo.port>
         <cargo.wait>false</cargo.wait>
@@ -624,7 +624,7 @@
         <hapi.version>0.5.1</hapi.version>
         <omar.version>3.1</omar.version>
   		<oasis.version>1.0</oasis.version> 
-  		<axis2.version>1.5</axis2.version>
+  		<axis2.version>1.8.0</axis2.version>
   		<build.lib.dir>../lib</build.lib.dir>
     </properties>
 </project>
