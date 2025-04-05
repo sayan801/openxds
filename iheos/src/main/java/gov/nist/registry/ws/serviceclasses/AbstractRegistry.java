@@ -17,7 +17,7 @@ import gov.nist.registry.ws.SubmitObjectsRequest;
 
 import org.apache.axiom.om.OMElement;
 import org.apache.axis2.AxisFault;
-import org.openhealthtools.openxds.log.LoggerException;
+import org.openhealthtools.openexchange.syslog.LoggerException;
 
 public abstract class AbstractRegistry extends XdsService implements
 ContentValidationService {
@@ -54,12 +54,13 @@ ContentValidationService {
 	}
 
 
-	public OMElement SubmitObjectsRequest(OMElement sor) throws AxisFault {
+	public OMElement DocumentRegistry_RegisterDocumentSet_b(OMElement sor) throws AxisFault {
 		try {
 			OMElement startup_error = beginTransaction(getRTransactionName(sor), sor, AppendixV.REGISTRY_ACTOR);
 			if (startup_error != null)
 				return startup_error;
-			log_message.setTestMessage(getRTransactionName(sor));
+			if(log_message != null)
+				log_message.setTestMessage(getRTransactionName(sor));
 
 			validateWS(false);
 
@@ -76,11 +77,12 @@ ContentValidationService {
 		}
 	}
 
-	public OMElement AdhocQueryRequest(OMElement ahqr) throws AxisFault {
+	public OMElement DocumentRegistry_RegistryStoredQuery(OMElement ahqr) throws AxisFault {
 		OMElement startup_error = beginTransaction(getRTransactionName(ahqr), ahqr, AppendixV.REGISTRY_ACTOR);
 		if (startup_error != null)
 			return startup_error;
-		log_message.setTestMessage(getRTransactionName(ahqr));
+		if(log_message != null)
+			log_message.setTestMessage(getRTransactionName(ahqr));
 
 		String type = getRTransactionName(ahqr);
 

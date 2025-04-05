@@ -36,7 +36,7 @@ public class UniqueId {
 				rel.add_error(MetadataSupport.XDSRegistryDuplicateUniqueIdInMessage, 
 						"UniqueId " + uid + " is not unique within the submission", 
 						"validation/UniqueId.java", null);
-			//validate_format(uid); //TODO re-enable when submitters of document start to comply
+			validate_format(uid);
 		}
 
 		for (String id : m.getExtrinsicObjectIds()) {
@@ -75,8 +75,7 @@ public class UniqueId {
 				rel.add_error(MetadataSupport.XDSRegistryMetadataError,
 						"UniqueId " + uid + ": OID part is larger than the allowed 64 characters",
 						"validation/UniqueId.java:validate_format_for_documents", null);
-			//was_ if (ext.length() > 16), but some documentIds received were observed to have a length of 36, so increasing
-		    if (ext.length() > 64)
+			if (ext.length() > 16)
 				rel.add_error(MetadataSupport.XDSRegistryMetadataError,
 						"UniqueId " + uid + ": EXT part is larger than the allowed 16 characters",
 						"validation/UniqueId.java:validate_format_for_documents", null);

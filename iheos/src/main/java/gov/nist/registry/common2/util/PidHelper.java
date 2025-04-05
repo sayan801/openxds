@@ -5,16 +5,9 @@ import java.lang.management.RuntimeMXBean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;   
-
 public class PidHelper {
-	
 	private final static Pattern mxBeanJvmNamePattern = Pattern.compile("^([0-9]+)@.*");
-
-    private final static Log logger = LogFactory.getLog(PidHelper.class);
 	
-	private static String cached_pid = null;
 	/**
 	 * Sadly, there does not seem to be any elegant way to find the Process ID of
 	 * the JVM. We fall back to looking at the JVM name - this returns a name of the
@@ -25,24 +18,17 @@ public class PidHelper {
 	 * 
 	 * @return the Process ID of the currently running JVM, if it can be determined.
 	 */
-	public static synchronized String getPid() {
-		
-		if (cached_pid != null) {
-			return cached_pid;
-		}
-		
+	public static String getPid() {
 		RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
 		String jvmName = runtimeMXBean.getName();
-		
+
 		Matcher matcher = mxBeanJvmNamePattern.matcher(jvmName);
 		if (matcher.matches()) {
-			cached_pid = matcher.group(1);
-			return cached_pid;
+			return matcher.group(1);
 		}
 		else
 		{
-			cached_pid = " ";
-			return cached_pid;
+			return null;
 		}
 	}
 }

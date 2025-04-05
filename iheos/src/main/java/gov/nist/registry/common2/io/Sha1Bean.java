@@ -72,39 +72,20 @@ public class Sha1Bean {
     
     public String getSha1File(File input) throws Exception {
 		javax.activation.DataHandler dataHandler = new javax.activation.DataHandler(new FileDataSource(input));
-		InputStream is = null;
-		try {
-			is = dataHandler.getInputStream();
-			int file_length = (int) input.length();
-			byte[] inb = new byte[file_length];
-			is.read(inb);
-	        setByteStream(inb);
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			if (is != null) {
-				is.close();
-			}
-		}
-		
+		InputStream is = dataHandler.getInputStream();
+		int file_length = (int) input.length();
+		byte[] inb = new byte[file_length];
+		is.read(inb);
+        setByteStream(inb);
         return getSha1String();
     }
     
     public String getSha1(DataHandler dataHandler, int size) throws Exception {
-		InputStream is = null;		
-		try {
-			is = dataHandler.getInputStream();
-			byte[] inb = new byte[size];
-			is.read(inb);
-	        setByteStream(inb);
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			if (is != null) {
-				is.close();
-			}
-		}		
-		return getSha1String();
+		InputStream is = dataHandler.getInputStream();
+		byte[] inb = new byte[size];
+		is.read(inb);
+        setByteStream(inb);
+        return getSha1String();
     }
     
     // SHA1 of Jelani Nelson is:

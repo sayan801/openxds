@@ -1,1 +1,0 @@
-CREATE INDEX IF NOT EXISTS documententries_patientid_availabilitystatus_idx ON documententries (patientid, patientid_assigningauthorityid, patientid_assigningauthoritytype, availabilitystatus, id);
